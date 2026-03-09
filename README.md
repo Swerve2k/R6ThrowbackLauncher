@@ -31,5 +31,6 @@ A clean, easy-to-use downloader for **Rainbow Six Siege Operation Throwback**, w
 [![GitHub Repo stars](https://img.shields.io/github/stars/CeleDLuffy/R6ThrowbackLauncher?style=social)](https://github.com/CeleDLuffy/R6ThrowbackLauncher)
 [![Forks](https://img.shields.io/github/forks/CeleDLuffy/R6ThrowbackDownloader?style=social)](https://github.com/CeleDLuffy/your-repo/fork)
 
-<img alt="Static Badge" src="https://img.shields.io/badge/Made_by_Cele_D._Luffy-pink">
+# <img alt="Static Badge" src="https://img.shields.io/badge/Made_by_Cele_D._Luffy-black">
+
 
