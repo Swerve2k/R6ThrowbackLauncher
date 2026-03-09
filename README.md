@@ -1,3 +1,5 @@
+# ![XAML](https://img.shields.io/badge/language-XAML-blue) ![JavaScript](https://img.shields.io/badge/language-JavaScript-yellow ) ![C#](https://img.shields.io/badge/language-C#-red)
+
 # R6 Downloader for Operation Throwback 🎮
 
 A clean, easy-to-use downloader for **Rainbow Six Siege Operation Throwback**, with built-in features for downloading and customizations.
