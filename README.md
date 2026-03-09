@@ -1,4 +1,4 @@
-# ![XAML](https://img.shields.io/badge/language-XAML-blue) ![JavaScript](https://img.shields.io/badge/language-JavaScript-yellow ) ![C#](https://img.shields.io/badge/language-C#-red)
+# ![XAML](https://img.shields.io/badge/language-XAML-blue) ![JavaScript](https://img.shields.io/badge/language-JavaScript-yellow ) ![C++](https://img.shields.io/badge/language-C++-red)
 
 # R6 Downloader for Operation Throwback 🎮
 
