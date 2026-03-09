@@ -33,4 +33,4 @@ A clean, easy-to-use downloader for **Rainbow Six Siege Operation Throwback**, w
 
 # <img alt="Static Badge" src="https://img.shields.io/badge/Made_by_Cele_D._Luffy-black">
 
-
+![Language Badge](https://img.shields.io/github/languages/top/CeleDLuffy/R6ThrowbackLauncher)
