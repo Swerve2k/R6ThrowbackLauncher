@@ -1,38 +1,87 @@
-# ![XAML](https://img.shields.io/badge/language-XAML-blue) ![JavaScript](https://img.shields.io/badge/language-JavaScript-yellow ) ![C++](https://img.shields.io/badge/language-C++-red)
-
 # R6 Downloader for Operation Throwback 🎮
 
-A clean, easy-to-use downloader for **Rainbow Six Siege Operation Throwback**, with built-in features for downloading and customizations.
+![XAML](https://img.shields.io/badge/language-XAML-blue)
+![JavaScript](https://img.shields.io/badge/language-JavaScript-yellow)
+![C++](https://img.shields.io/badge/language-C++-red)
+
+---
+
+## On This Project 👥
+
+<table>
+<tr>
+
+<td align="center">
+<a href="https://github.com/JOJOVAV">
+<img src="https://github.com/JOJOVAV.png" width="90px;" alt="JOJOVAV"/>
+<br /><sub><b>JOJOVAV</b></sub>
+</a>
+</td>
+
+<td align="center">
+<a href="https://github.com/lungu19">
+<img src="https://github.com/lungu19.png" width="90px;" alt="lungu19"/>
+<br /><sub><b>lungu19</b></sub>
+</a>
+</td>
+
+<td align="center">
+<a href="https://github.com/Vergepoland">
+<img src="https://github.com/Vergepoland.png" width="90px;" alt="Vergepoland"/>
+<br /><sub><b>Vergepoland</b></sub>
+</a>
+</td>
+
+</tr>
+</table>
+
+---
+
+A clean, easy-to-use downloader for **Rainbow Six Siege Operation Throwback**, with built-in tools for downloading and customization.
 
 ---
 
 ## Features ✨
-- **Clean GUI** in a single app, no extra files needed except for **.NET 8.0** if not already installed.
-- **One-click downloads**: It automates the process for you.
-- **Built-in username changer**: Change your username with just one click.
-- Built on **[DepotDownloader](https://github.com/SteamRE/DepotDownloader)**.
-- Uses **[ThrowbackLoader cracks](https://github.com/lungu19/ThrowbackLoader)** by **Lungu**.
-- Uses **[Hashes and Manifest](https://github.com/JOJOVAV)** by **JVAV**.
+
+* **Clean GUI** in a single app
+* **No extra files required** except **.NET 8.0** (if not already installed)
+* **One-click downloads** that automate the entire process
+* **Built-in username changer**
+* Built using **DepotDownloader**
+* Supports **ThrowbackLoader**
+* Uses verified **Hashes and Manifest files**
+
+---
+
+## Technologies Used 🛠
+
+* **XAML**
+* **C++**
+* **JavaScript**
 
 ---
 
 ## Credits 🙏
-- **Yaakov** – Creator of **SteamDepotDownloader**
-- **Lungu** – Creator of **ThrowbackLoader**
-- **JVAV** – Gave  **Hashes and Manifest.json**
+
+* **Yaakov** — Creator of SteamDepotDownloader
+* **Lungu** — Creator of ThrowbackLoader
+* **JVAV** — Provided hashes and `manifest.json`
 
 ---
 
-## Join the Community 🤝
-[Join the Operation Throwback Discord](https://discord.com/invite/r6s-operation-throwback-2-0-1092820800203141130)
+## Community 🤝
+
+Join the Operation Throwback community:
+
+https://discord.com/invite/r6s-operation-throwback-2-0-1092820800203141130
 
 ---
 
----
+## Repository Stats 📊
 
 [![GitHub Repo stars](https://img.shields.io/github/stars/CeleDLuffy/R6ThrowbackLauncher?style=social)](https://github.com/CeleDLuffy/R6ThrowbackLauncher)
-[![Forks](https://img.shields.io/github/forks/CeleDLuffy/R6ThrowbackDownloader?style=social)](https://github.com/CeleDLuffy/your-repo/fork)
+[![Forks](https://img.shields.io/github/forks/CeleDLuffy/R6ThrowbackLauncher?style=social)](https://github.com/CeleDLuffy/R6ThrowbackLauncher/fork)
 
-# <img alt="Static Badge" src="https://img.shields.io/badge/Made_by_Cele_D._Luffy-black">
+---
 
-![XAML](https://img.shields.io/badge/language-XAML-blue)
+![Made by](https://img.shields.io/badge/Made_by-Cele_D._Luffy-black)
