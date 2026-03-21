@@ -85,3 +85,5 @@ https://discord.com/invite/r6s-operation-throwback-2-0-1092820800203141130
 ---
 
 ![Made by](https://img.shields.io/badge/Made_by-Cele_D._Luffy-black)
+
+poopyfart
