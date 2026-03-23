@@ -2,7 +2,6 @@
 
 ![XAML](https://img.shields.io/badge/language-XAML-blue)
 ![JavaScript](https://img.shields.io/badge/language-JavaScript-yellow)
-![C++](https://img.shields.io/badge/language-C++-red)
 
 ---
 
@@ -53,11 +52,6 @@ A clean, easy-to-use downloader for **Rainbow Six Siege Operation Throwback**, w
 
 ---
 
-## Technologies Used 🛠
-
-* **XAML**
-* **C++**
-* **JavaScript**
 
 ---
 
