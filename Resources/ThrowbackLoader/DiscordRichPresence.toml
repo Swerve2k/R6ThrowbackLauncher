@@ -1,0 +1,38 @@
+# Discord Rich Presence configuration for Operation Throwback.
+# This file is copied into every downloaded season folder together with ThrowbackLoader.
+# It is intended to be read by an external Discord Rich Presence helper.
+
+[rich_presence]
+# Set to false to completely disable Rich Presence.
+enabled = true
+
+# Discord application id that owns the "Operation Throwback" artwork.
+# Replace this with your own application id from https://discord.com/developers/applications
+application_id = "REPLACE_WITH_YOUR_DISCORD_APP_ID"
+
+# The main line shown in Discord.
+# Example final text:
+#   Playing Operation Throwback
+details = "Playing Operation Throwback"
+
+# Second line. These placeholders are meant to be replaced by your helper:
+#   [SeasonName]       – e.g. "Blood Orchid"
+#   [YearAndSeasonKey] – e.g. "Y2S3"
+# Example final text:
+#   Blood Orchid Y2S3
+state = "[SeasonName] [YearAndSeasonKey]"
+
+# Text under the icon, using the in‑game name from ThrowbackLoader.toml.
+# Your helper should read [general].username from ThrowbackLoader.toml
+# and substitute it for [NameInThrowbackLoader.toml].
+# Example final text:
+#   Logged in as Pengu
+small_text = "Logged in as [NameInThrowbackLoader.toml]"
+
+# Artwork keys uploaded in your Discord application.
+# large_image_key could be something like "operation_throwback_logo".
+large_image_key = "operation_throwback_logo"
+large_image_text = "Operation Throwback"
+
+# Optional small icon (e.g. current season logo).
+small_image_key = ""

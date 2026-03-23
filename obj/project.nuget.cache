@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "Hi0rOEfRGkU=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Omari\\Downloads\\R6ThrowbackLauncher_v0.2.0\\R6ThrowbackLauncher\\R6ThrowbackLauncher.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Omari\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\8.0.23\\microsoft.windowsdesktop.app.ref.8.0.23.nupkg.sha512",
+    "C:\\Users\\Omari\\.nuget\\packages\\microsoft.netcore.app.ref\\8.0.23\\microsoft.netcore.app.ref.8.0.23.nupkg.sha512",
+    "C:\\Users\\Omari\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\8.0.23\\microsoft.aspnetcore.app.ref.8.0.23.nupkg.sha512",
+    "C:\\Users\\Omari\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\8.0.23\\microsoft.netcore.app.host.win-x64.8.0.23.nupkg.sha512"
+  ],
+  "logs": []
+}
