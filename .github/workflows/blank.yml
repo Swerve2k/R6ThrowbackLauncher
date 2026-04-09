@@ -1,0 +1,24 @@
+name: Send Issues to Discord
+
+on:
+  issues:
+    types: [opened, closed, reopened]
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send to Discord
+        run: |
+          curl -H "Content-Type: application/json" \
+          -X POST \
+          -d "{
+            \"content\": \"📌 Issue Event\",
+            \"embeds\": [{
+              \"title\": \"${{ github.event.issue.title }}\",
+              \"url\": \"${{ github.event.issue.html_url }}\",
+              \"description\": \"${{ github.event.issue.body }}\",
+              \"color\": 5814783
+            }]
+          }" \
+          ${{ secrets.DISCORD_WEBHOOK }}
