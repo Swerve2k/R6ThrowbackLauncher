@@ -9,16 +9,40 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Send to Discord
+        env:
+          TITLE:   ${{ github.event.issue.title }}
+          URL:     ${{ github.event.issue.html_url }}
+          BODY:    ${{ github.event.issue.body }}
+          ACTION:  ${{ github.event.action }}
+          WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
         run: |
-          curl -H "Content-Type: application/json" \
-          -X POST \
-          -d "{
-            \"content\": \"📌 Issue Event\",
-            \"embeds\": [{
-              \"title\": \"${{ github.event.issue.title }}\",
-              \"url\": \"${{ github.event.issue.html_url }}\",
-              \"description\": \"${{ github.event.issue.body }}\",
-              \"color\": 5814783
-            }]
-          }" \
-          ${{ secrets.DISCORD_WEBHOOK }}
+          # Pick an emoji + colour based on the event action
+          case "$ACTION" in
+            opened)   EMOJI="🆕" ; COLOR=5814783  ;;
+            closed)   EMOJI="✅" ; COLOR=5763719  ;;
+            reopened) EMOJI="🔄" ; COLOR=16776960 ;;
+            *)        EMOJI="📌" ; COLOR=5814783  ;;
+          esac
+
+          # jq handles all escaping — no manual JSON string building
+          PAYLOAD=$(jq -n \
+            --arg content "$EMOJI Issue ${ACTION^}: $TITLE" \
+            --arg title   "$TITLE" \
+            --arg url     "$URL" \
+            --arg desc    "${BODY:0:2000}" \
+            --argjson color "$COLOR" \
+            '{
+              content: $content,
+              embeds: [{
+                title:       $title,
+                url:         $url,
+                description: $desc,
+                color:       $color
+              }]
+            }')
+
+          curl -f -s -o /dev/null \
+               -H "Content-Type: application/json" \
+               -X POST \
+               -d "$PAYLOAD" \
+               "$WEBHOOK"
