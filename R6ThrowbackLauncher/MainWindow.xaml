@@ -1,0 +1,373 @@
+<Window x:Class="R6ThrowbackLauncher.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Swerve2k Downloader"
+        Height="860" Width="1380" MinHeight="620" MinWidth="1040"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="SingleBorderWindow"
+        ResizeMode="CanResize"
+        Background="{DynamicResource Brush.Window}"
+        Foreground="{DynamicResource Brush.Fg}"
+        FontFamily="{DynamicResource Font.Ui}"
+        FontSize="13"
+        UseLayoutRounding="True"
+        SnapsToDevicePixels="True">
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="44" ResizeBorderThickness="6" GlassFrameThickness="0"
+                      CornerRadius="0" UseAeroCaptionButtons="False"/>
+    </WindowChrome.WindowChrome>
+
+    <Grid x:Name="RootGrid">
+            <Grid x:Name="ScaleRoot">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="236"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Sidebar -->
+                <Border Grid.Column="0" Background="{DynamicResource Brush.Sidebar}"
+                        BorderBrush="{DynamicResource Brush.Stroke}" BorderThickness="0,0,1,0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="64"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" VerticalAlignment="Center" Margin="22,4,16,0" FontSize="17" FontWeight="Bold"
+                                   TextTrimming="CharacterEllipsis" Foreground="{DynamicResource Brush.Fg}">
+                            <Run Text="Swerve2k"/><Run Text=" Downloader" FontWeight="Normal" Foreground="{DynamicResource Brush.Fg2}"/>
+                        </TextBlock>
+
+                        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="0,6,0,0">
+                            <StackPanel Margin="12,0,12,12">
+                                <TextBlock Text="LIBRARY" Style="{StaticResource Text.Section}" Margin="12,8,0,6"/>
+                                <RadioButton x:Name="NavHome" Style="{StaticResource Nav.Item}" Tag="&#xE80F;" Content="Home" IsChecked="True" Click="Nav_Click"/>
+                                <RadioButton x:Name="NavBrowse" Style="{StaticResource Nav.Item}" Tag="&#xE8A9;" Content="Browse seasons" Click="Nav_Click"/>
+                                <Grid>
+                                    <RadioButton x:Name="NavDownloads" Style="{StaticResource Nav.Item}" Tag="&#xE896;" Content="Downloads" Click="Nav_Click"/>
+                                    <Border x:Name="DownloadsBadge" Visibility="Collapsed" HorizontalAlignment="Right" Margin="0,0,10,0"
+                                            VerticalAlignment="Center" MinWidth="20" Height="18" CornerRadius="9" Padding="6,0"
+                                            Background="{DynamicResource Brush.Accent}" IsHitTestVisible="False">
+                                        <TextBlock x:Name="DownloadsBadgeText" Text="0" FontSize="11" FontWeight="SemiBold"
+                                                   Foreground="{DynamicResource Brush.OnAccent}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </Grid>
+
+                                <TextBlock Text="COMMUNITY" Style="{StaticResource Text.Section}" Margin="12,18,0,6"/>
+                                <Grid>
+                                    <RadioButton x:Name="NavFriends" Style="{StaticResource Nav.Item}" Tag="&#xE716;" Content="Friends" Click="Nav_Click"/>
+                                    <Border x:Name="FriendsBadge" Visibility="Collapsed" HorizontalAlignment="Right" Margin="0,0,10,0"
+                                            VerticalAlignment="Center" MinWidth="20" Height="18" CornerRadius="9" Padding="6,0"
+                                            Background="{DynamicResource Brush.Accent}" IsHitTestVisible="False">
+                                        <TextBlock x:Name="FriendsBadgeText" Text="0" FontSize="11" FontWeight="SemiBold"
+                                                   Foreground="{DynamicResource Brush.OnAccent}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </Grid>
+                                <RadioButton x:Name="NavLeaderboard" Style="{StaticResource Nav.Item}" Tag="&#xE9F9;" Content="Leaderboard" Click="Nav_Click"/>
+
+                                <TextBlock Text="SYSTEM" Style="{StaticResource Text.Section}" Margin="12,18,0,6"/>
+                                <RadioButton x:Name="NavStats" Style="{StaticResource Nav.Item}" Tag="&#xE9D2;" Content="Stats" Click="Nav_Click"/>
+                                <RadioButton x:Name="NavStorage" Style="{StaticResource Nav.Item}" Tag="&#xEDA2;" Content="Storage" Click="Nav_Click"/>
+                                <Grid>
+                                    <RadioButton x:Name="NavUpdates" Style="{StaticResource Nav.Item}" Tag="&#xE895;" Content="Updates" Click="Nav_Click"/>
+                                    <Border x:Name="UpdatesBadge" Visibility="Collapsed" HorizontalAlignment="Right" Margin="0,0,10,0"
+                                            VerticalAlignment="Center" MinWidth="20" Height="18" CornerRadius="9" Padding="6,0"
+                                            Background="{DynamicResource Brush.Accent}" IsHitTestVisible="False">
+                                        <TextBlock x:Name="UpdatesBadgeText" Text="0" FontSize="11" FontWeight="SemiBold"
+                                                   Foreground="{DynamicResource Brush.OnAccent}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </Grid>
+                                <RadioButton x:Name="NavSettings" Style="{StaticResource Nav.Item}" Tag="&#xE713;" Content="Settings" Click="Nav_Click"/>
+                            </StackPanel>
+                        </ScrollViewer>
+
+                        <!-- Now playing -->
+                        <Border x:Name="NowPlayingCard" Grid.Row="2" Visibility="Collapsed" Margin="12,0,12,10" Padding="14,12"
+                                CornerRadius="10" Background="{DynamicResource Brush.Surface2}"
+                                BorderBrush="{DynamicResource Brush.StrokeStrong}" BorderThickness="1">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Ellipse Width="7" Height="7" Fill="{DynamicResource Brush.Fg}" Margin="0,0,7,0"/>
+                                        <TextBlock Text="IN GAME" FontSize="10" FontWeight="SemiBold" Foreground="{DynamicResource Brush.Fg2}"/>
+                                    </StackPanel>
+                                    <TextBlock x:Name="NowPlayingTitle" Text="" FontSize="13" FontWeight="SemiBold" Margin="0,5,0,0"
+                                               TextTrimming="CharacterEllipsis" Foreground="{DynamicResource Brush.Fg}"/>
+                                    <TextBlock x:Name="NowPlayingTimer" Text="00:00" FontSize="12" Margin="0,2,0,0"
+                                               FontFamily="{DynamicResource Font.Mono}" Foreground="{DynamicResource Brush.Fg3}"/>
+                                </StackPanel>
+                                <Button Grid.Column="1" x:Name="StopGameButton" Style="{StaticResource Btn.Icon}" Content="&#xE71A;"
+                                        ToolTip="Stop game" VerticalAlignment="Center" Click="StopGame_Click"/>
+                            </Grid>
+                        </Border>
+
+                        <!-- Profile -->
+                        <Border Grid.Row="3" BorderBrush="{DynamicResource Brush.Stroke}" BorderThickness="0,1,0,0" Padding="12,10">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Button x:Name="ProfileButton" Style="{StaticResource Btn.Ghost}" Height="48" Padding="8,0"
+                                        HorizontalContentAlignment="Left" Click="ProfileButton_Click" ToolTip="Your profile">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Grid Width="32" Height="32">
+                                            <Ellipse Fill="{DynamicResource Brush.Surface3}"/>
+                                            <TextBlock Text="&#xE77B;" Style="{StaticResource Text.Icon}" FontSize="15"
+                                                       HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource Brush.Fg2}"/>
+                                            <Ellipse x:Name="SidebarPresenceDot" Width="10" Height="10" StrokeThickness="2" Visibility="Collapsed"
+                                                     HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                                                     Fill="{DynamicResource Brush.Fg}" Stroke="{DynamicResource Brush.Sidebar}"/>
+                                        </Grid>
+                                        <StackPanel Margin="10,0,0,0" VerticalAlignment="Center">
+                                            <TextBlock x:Name="SidebarUsername" Text="Player" FontSize="13" FontWeight="SemiBold"
+                                                       Foreground="{DynamicResource Brush.Fg}" TextTrimming="CharacterEllipsis" MaxWidth="120"/>
+                                            <TextBlock x:Name="SidebarStatus" Text="" FontSize="11" Foreground="{DynamicResource Brush.Fg3}"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </Button>
+                                <TextBlock Grid.Column="1" x:Name="SidebarVersion" Text="v3.0.0" FontSize="11" VerticalAlignment="Center"
+                                           Margin="0,0,4,0" Foreground="{DynamicResource Brush.Fg3}"/>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <!-- Main column -->
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="44"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="30"/>
+                    </Grid.RowDefinitions>
+
+                    <!-- Title bar -->
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="BackButton" Grid.Column="0" Style="{StaticResource Btn.Icon}" Content="&#xE76B;"
+                                Margin="12,0,0,0" Visibility="Collapsed" ToolTip="Back (Esc)"
+                                WindowChrome.IsHitTestVisibleInChrome="True" Click="BackButton_Click"/>
+                        <TextBlock x:Name="PageTitle" Grid.Column="1" Text="Home" FontSize="13" FontWeight="SemiBold"
+                                   VerticalAlignment="Center" Margin="20,0,0,0" Foreground="{DynamicResource Brush.Fg2}"/>
+                        <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,12,0">
+                            <Border x:Name="OnlineChip" Visibility="Collapsed" CornerRadius="11" Padding="10,3"
+                                    Background="{DynamicResource Brush.Surface2}" BorderBrush="{DynamicResource Brush.Stroke}" BorderThickness="1"
+                                    ToolTip="People using the launcher right now while signed in with Steam">
+                                <StackPanel Orientation="Horizontal">
+                                    <Grid Width="8" Height="8" Margin="0,0,8,0" VerticalAlignment="Center">
+                                        <Ellipse x:Name="OnlinePulse" Fill="{DynamicResource Brush.Fg}" RenderTransformOrigin="0.5,0.5">
+                                            <Ellipse.RenderTransform>
+                                                <ScaleTransform x:Name="OnlinePulseScale"/>
+                                            </Ellipse.RenderTransform>
+                                        </Ellipse>
+                                        <Ellipse Width="6" Height="6" Fill="{DynamicResource Brush.Fg}"/>
+                                    </Grid>
+                                    <TextBlock x:Name="OnlineText" Text="0 players online" FontSize="11" Foreground="{DynamicResource Brush.Fg2}"/>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                        <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Top">
+                            <Button Style="{StaticResource Btn.Caption}" Content="&#xE921;" ToolTip="Minimize"
+                                    WindowChrome.IsHitTestVisibleInChrome="True" Click="Minimize_Click"/>
+                            <Button x:Name="MaximizeButton" Style="{StaticResource Btn.Caption}" Content="&#xE922;" ToolTip="Maximize"
+                                    WindowChrome.IsHitTestVisibleInChrome="True" Click="Maximize_Click"/>
+                            <Button Style="{StaticResource Btn.CaptionClose}" Content="&#xE8BB;" ToolTip="Close"
+                                    WindowChrome.IsHitTestVisibleInChrome="True" Click="Close_Click"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <!-- Update banner (built in code) -->
+                    <Border x:Name="UpdateBannerHost" Grid.Row="1" Visibility="Collapsed"/>
+
+                    <!-- Views -->
+                    <Grid x:Name="ViewHost" Grid.Row="2">
+                        <!-- Home -->
+                        <Grid x:Name="HomeView">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid Margin="36,8,36,16">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel>
+                                    <TextBlock Text="Library" Style="{StaticResource Text.Title}"/>
+                                    <TextBlock x:Name="HomeSubtitle" Text="" Style="{StaticResource Text.Caption}" Margin="0,4,0,0"/>
+                                </StackPanel>
+                                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Bottom">
+                                    <Grid Width="240">
+                                        <TextBox x:Name="LibrarySearch" Style="{StaticResource Input}" Tag="Search library"
+                                                 Padding="32,0,10,0" TextChanged="LibrarySearch_TextChanged"/>
+                                        <TextBlock Text="&#xE721;" Style="{StaticResource Text.Icon}" FontSize="12" HorizontalAlignment="Left"
+                                                   Margin="11,0,0,0" Foreground="{DynamicResource Brush.Fg3}" IsHitTestVisible="False"/>
+                                    </Grid>
+                                    <ComboBox x:Name="SortCombo" Style="{StaticResource Combo}" Width="170" Margin="8,0,0,0"
+                                              SelectionChanged="SortCombo_SelectionChanged" ToolTip="Sort">
+                                        <ComboBoxItem Content="Season order" Tag="season"/>
+                                        <ComboBoxItem Content="Recently played" Tag="recent"/>
+                                        <ComboBoxItem Content="Most played" Tag="playtime"/>
+                                        <ComboBoxItem Content="Release date" Tag="date"/>
+                                        <ComboBoxItem Content="Name" Tag="name"/>
+                                    </ComboBox>
+                                    <Border Style="{StaticResource SegmentHost}" Margin="8,0,0,0">
+                                        <StackPanel Orientation="Horizontal">
+                                            <RadioButton x:Name="ViewGridToggle" Style="{StaticResource Segment}" GroupName="LibView"
+                                                         Padding="10,0" ToolTip="Grid view" Click="ViewToggle_Click">
+                                                <TextBlock Text="&#xF0E2;" Style="{StaticResource Text.Icon}" FontSize="13"/>
+                                            </RadioButton>
+                                            <RadioButton x:Name="ViewListToggle" Style="{StaticResource Segment}" GroupName="LibView"
+                                                         Padding="10,0" ToolTip="List view" Click="ViewToggle_Click">
+                                                <TextBlock Text="&#xE8FD;" Style="{StaticResource Text.Icon}" FontSize="13"/>
+                                            </RadioButton>
+                                        </StackPanel>
+                                    </Border>
+                                    <Button x:Name="LibraryMenuButton" Style="{StaticResource Btn.Icon}" Content="&#xE712;" Width="34" Height="34"
+                                            Margin="4,0,0,0" ToolTip="Library options" Click="LibraryMenu_Click"/>
+                                </StackPanel>
+                            </Grid>
+                            <ScrollViewer x:Name="HomeScroll" Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="36,0,26,32">
+                                <StackPanel x:Name="HomeContent"/>
+                            </ScrollViewer>
+                        </Grid>
+
+                        <!-- Browse -->
+                        <Grid x:Name="BrowseView" Visibility="Collapsed">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid Margin="36,8,36,16">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel>
+                                    <TextBlock Text="Browse seasons" Style="{StaticResource Text.Title}"/>
+                                    <TextBlock x:Name="BrowseSubtitle" Text="" Style="{StaticResource Text.Caption}" Margin="0,4,0,0"/>
+                                </StackPanel>
+                                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Bottom">
+                                    <Grid Width="240">
+                                        <TextBox x:Name="BrowseSearch" Style="{StaticResource Input}" Tag="Search seasons"
+                                                 Padding="32,0,10,0" TextChanged="BrowseSearch_TextChanged"/>
+                                        <TextBlock Text="&#xE721;" Style="{StaticResource Text.Icon}" FontSize="12" HorizontalAlignment="Left"
+                                                   Margin="11,0,0,0" Foreground="{DynamicResource Brush.Fg3}" IsHitTestVisible="False"/>
+                                    </Grid>
+                                    <Border Style="{StaticResource SegmentHost}" Margin="8,0,0,0">
+                                        <StackPanel Orientation="Horizontal">
+                                            <RadioButton Style="{StaticResource Segment}" GroupName="BrowseFilter" Content="All" Tag="all" IsChecked="True" Click="BrowseFilter_Click"/>
+                                            <RadioButton Style="{StaticResource Segment}" GroupName="BrowseFilter" Content="Installed" Tag="installed" Click="BrowseFilter_Click"/>
+                                            <RadioButton Style="{StaticResource Segment}" GroupName="BrowseFilter" Content="Not installed" Tag="missing" Click="BrowseFilter_Click"/>
+                                            <RadioButton Style="{StaticResource Segment}" GroupName="BrowseFilter" Content="Heated Metal" Tag="hm" Click="BrowseFilter_Click"/>
+                                        </StackPanel>
+                                    </Border>
+                                </StackPanel>
+                            </Grid>
+                            <ScrollViewer x:Name="BrowseScroll" Grid.Row="1" VerticalScrollBarVisibility="Auto" Padding="36,0,26,32">
+                                <StackPanel x:Name="BrowseContent"/>
+                            </ScrollViewer>
+                        </Grid>
+
+                        <!-- Season detail -->
+                        <Grid x:Name="DetailView" Visibility="Collapsed">
+                            <ScrollViewer x:Name="DetailScroll" VerticalScrollBarVisibility="Auto">
+                                <StackPanel x:Name="DetailContent"/>
+                            </ScrollViewer>
+                        </Grid>
+
+                        <!-- Generic page views (built in code) -->
+                        <Grid x:Name="DownloadsView" Visibility="Collapsed">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="36,8,26,32">
+                                <StackPanel x:Name="DownloadsContent"/>
+                            </ScrollViewer>
+                        </Grid>
+                        <Grid x:Name="FriendsView" Visibility="Collapsed">
+                            <ScrollViewer x:Name="FriendsScroll" VerticalScrollBarVisibility="Auto" Padding="36,8,26,32">
+                                <StackPanel x:Name="FriendsContent"/>
+                            </ScrollViewer>
+                        </Grid>
+                        <Grid x:Name="LeaderboardView" Visibility="Collapsed">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="36,8,26,32">
+                                <StackPanel x:Name="LeaderboardContent"/>
+                            </ScrollViewer>
+                        </Grid>
+                        <Grid x:Name="ProfileView" Visibility="Collapsed">
+                            <ScrollViewer x:Name="ProfileScroll" VerticalScrollBarVisibility="Auto" Padding="36,8,26,32">
+                                <StackPanel x:Name="ProfileContent"/>
+                            </ScrollViewer>
+                        </Grid>
+                        <Grid x:Name="StatsView" Visibility="Collapsed">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="36,8,26,32">
+                                <StackPanel x:Name="StatsContent"/>
+                            </ScrollViewer>
+                        </Grid>
+                        <Grid x:Name="StorageView" Visibility="Collapsed">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="36,8,26,32">
+                                <StackPanel x:Name="StorageContent"/>
+                            </ScrollViewer>
+                        </Grid>
+                        <Grid x:Name="UpdatesView" Visibility="Collapsed">
+                            <ScrollViewer x:Name="UpdatesScroll" VerticalScrollBarVisibility="Auto" Padding="36,8,26,32">
+                                <StackPanel x:Name="UpdatesContent"/>
+                            </ScrollViewer>
+                        </Grid>
+                        <Grid x:Name="SettingsView" Visibility="Collapsed">
+                            <ScrollViewer x:Name="SettingsScroll" VerticalScrollBarVisibility="Auto" Padding="36,8,26,32">
+                                <StackPanel x:Name="SettingsContent"/>
+                            </ScrollViewer>
+                        </Grid>
+                    </Grid>
+
+                    <!-- Status bar -->
+                    <Border Grid.Row="3" BorderBrush="{DynamicResource Brush.Stroke}" BorderThickness="0,1,0,0"
+                            Background="{DynamicResource Brush.Sidebar}">
+                        <Grid Margin="20,0,16,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock x:Name="StatusLeft" Text="" FontSize="11" VerticalAlignment="Center" Foreground="{DynamicResource Brush.Fg3}"/>
+                            <Button x:Name="StatusTransfer" Grid.Column="1" Visibility="Collapsed" HorizontalAlignment="Center"
+                                    Cursor="Hand" Click="StatusTransfer_Click" Background="Transparent" BorderThickness="0"
+                                    Style="{StaticResource Btn.Ghost}" Height="24" Padding="10,0">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock x:Name="StatusTransferText" Text="" FontSize="11" VerticalAlignment="Center"
+                                               Foreground="{DynamicResource Brush.Fg2}" MaxWidth="320" TextTrimming="CharacterEllipsis"/>
+                                    <ProgressBar x:Name="StatusTransferBar" Style="{DynamicResource Progress.Active}" Width="140" Height="4"
+                                                 Margin="10,0,0,0" Maximum="100" VerticalAlignment="Center"/>
+                                    <TextBlock x:Name="StatusTransferPct" Text="" FontSize="11" Margin="8,0,0,0" VerticalAlignment="Center"
+                                               FontFamily="{DynamicResource Font.Mono}" Foreground="{DynamicResource Brush.Fg2}"/>
+                                </StackPanel>
+                            </Button>
+                            <TextBlock x:Name="StatusRight" Grid.Column="2" Text="" FontSize="11" VerticalAlignment="Center" Foreground="{DynamicResource Brush.Fg3}"/>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Grid>
+
+        <!-- Dialog scrim -->
+        <Border x:Name="Scrim" Visibility="Collapsed" Background="{DynamicResource Brush.Scrim}"/>
+
+        <!-- In-window popups and the update screen (built in code) -->
+        <Grid x:Name="PopupLayer" Visibility="Collapsed"/>
+        <Grid x:Name="UpdateLayer" Visibility="Collapsed"/>
+
+        <!-- Toasts -->
+        <StackPanel x:Name="ToastHost" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,20,44" Width="340"/>
+    </Grid>
+</Window>

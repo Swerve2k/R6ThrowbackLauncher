@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <UseWindowsForms>true</UseWindowsForms>
+    <AssemblyName>R6ThrowbackLauncher</AssemblyName>
+    <RootNamespace>R6ThrowbackLauncher</RootNamespace>
+    <ApplicationIcon>installer_assets\icon.ico</ApplicationIcon>
+    <Version>3.0.0</Version>
+    <Product>Operation Throwback</Product>
+    <Description>Operation Throwback launcher</Description>
+  </PropertyGroup>
+
+  <!-- Copy the entire Resources folder next to the exe on build/publish -->
+  <ItemGroup>
+    <Content Include="Resources\**\*">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>Resources\%(RecursiveDir)%(Filename)%(Extension)</Link>
+    </Content>
+  </ItemGroup>
+
+</Project>

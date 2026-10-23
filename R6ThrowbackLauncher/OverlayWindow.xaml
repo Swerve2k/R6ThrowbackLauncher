@@ -1,0 +1,676 @@
+<Window
+    x:Class="R6ThrowbackLauncher.OverlayWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Width="440"
+    WindowStyle="None"
+    AllowsTransparency="True"
+    Background="Transparent"
+    Topmost="True"
+    ShowInTaskbar="False"
+    ResizeMode="NoResize">
+
+    <Border Margin="0,0,12,12">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="32" ShadowDepth="0" Opacity="0.95" Color="#000000"/>
+        </Border.Effect>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="4"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- ═══════════════ MAIN PANEL ═══════════════ -->
+            <Border Grid.Column="0" Background="#0A0A0A">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>  <!-- Header      -->
+                        <RowDefinition Height="Auto"/>  <!-- Now Playing -->
+                        <RowDefinition Height="Auto"/>  <!-- Tile Nav    -->
+                        <RowDefinition Height="*"/>     <!-- Content     -->
+                    </Grid.RowDefinitions>
+
+                    <!-- ══ HEADER ══ -->
+                    <Border Grid.Row="0" Background="#121212"
+                            BorderBrush="#1B1B1B" BorderThickness="0,0,0,1"
+                            Padding="14,12,14,12">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Border x:Name="HeaderAvatar"
+                                    Width="42" Height="42" CornerRadius="21"
+                                    Background="#3A3A3A" Margin="0,0,11,0"
+                                    VerticalAlignment="Center">
+                                <TextBlock x:Name="HeaderInitials" Text="??"
+                                           Foreground="White" FontSize="14" FontWeight="Bold"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,3">
+                                    <TextBlock x:Name="HeaderUsername" Text="—"
+                                               Foreground="#EEEEEE" FontSize="14" FontWeight="Bold"
+                                               VerticalAlignment="Center" Margin="0,0,8,0"/>
+                                    <Border x:Name="HeaderInGameBadge" Background="#1B1B1B"
+                                            CornerRadius="4" Padding="5,2"
+                                            VerticalAlignment="Center" Visibility="Collapsed">
+                                        <TextBlock Text="IN GAME" Foreground="#EDEDED"
+                                                   FontSize="9" FontWeight="Bold"/>
+                                    </Border>
+                                </StackPanel>
+                                <TextBlock x:Name="HeaderVersion" Text="Swerve2k Downloader"
+                                           Foreground="#5D5D5D" FontSize="10"
+                                           TextTrimming="CharacterEllipsis"/>
+                                <TextBlock x:Name="HeaderStats" Text=""
+                                           Foreground="#2C2C2C" FontSize="10"
+                                           TextTrimming="CharacterEllipsis"/>
+                            </StackPanel>
+
+                            <Border Grid.Column="2" Width="28" Height="28" CornerRadius="6"
+                                    Background="Transparent" Cursor="Hand"
+                                    VerticalAlignment="Top"
+                                    MouseLeftButtonUp="CloseBtn_Click">
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#0D0D0D"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                                <TextBlock Text="&#xE711;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" Foreground="#6B6B6B" FontSize="10"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </Grid>
+                    </Border>
+
+                    <!-- ══ NOW PLAYING BANNER ══ -->
+                    <Border x:Name="NowPlayingBanner" Grid.Row="1"
+                            Visibility="Collapsed"
+                            Background="#070707"
+                            BorderBrush="#181818" BorderThickness="0,0,0,1"
+                            Padding="14,8,14,8">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Border Width="8" Height="8" CornerRadius="4"
+                                    Background="#3A3A3A" VerticalAlignment="Center"
+                                    Margin="0,0,10,0"/>
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                <TextBlock x:Name="NowPlayingVersion" Text="—"
+                                           Foreground="#EDEDED" FontSize="11" FontWeight="Bold"
+                                           TextTrimming="CharacterEllipsis"/>
+                                <TextBlock x:Name="NowPlayingDetail" Text="In game"
+                                           Foreground="#5D5D5D" FontSize="10" Margin="0,1,0,0"
+                                           TextTrimming="CharacterEllipsis"/>
+                            </StackPanel>
+                            <TextBlock x:Name="NowPlayingTimer" Grid.Column="2"
+                                       Text="00:00" Foreground="#5D5D5D"
+                                       FontSize="12" FontWeight="Bold" FontFamily="Consolas"
+                                       VerticalAlignment="Center"/>
+                        </Grid>
+                    </Border>
+
+                    <!-- ══ TILE NAVIGATION ══ -->
+                    <Border Grid.Row="2" Padding="10,10,10,8">
+                        <Grid Opacity="0.95">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="8"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="80"/>
+                                <RowDefinition Height="8"/>
+                                <RowDefinition Height="80"/>
+                            </Grid.RowDefinitions>
+
+                            <!-- ── FRIENDS tile ── -->
+                            <Border x:Name="TabBtnFriends"
+                                    Grid.Row="0" Grid.Column="0"
+                                    CornerRadius="10"
+                                    Background="#101010"
+                                    BorderBrush="#EDEDED" BorderThickness="1"
+                                    Cursor="Hand"
+                                    MouseLeftButtonUp="TabBtn_Click" Tag="friends"
+                                    ClipToBounds="True">
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#171717"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                                <Grid>
+                                    <!-- Arc decoration -->
+                                    <Canvas Width="130" Height="80" HorizontalAlignment="Right"
+                                            VerticalAlignment="Bottom" IsHitTestVisible="False"
+                                            ClipToBounds="True">
+                                        <Path Stroke="#929292" StrokeThickness="1.5" Opacity="0.55">
+                                            <Path.Data><PathGeometry><PathFigure StartPoint="130,58" IsClosed="False"><ArcSegment Point="108,80" Size="22,22" IsLargeArc="False" SweepDirection="Counterclockwise"/></PathFigure></PathGeometry></Path.Data>
+                                        </Path>
+                                        <Path Stroke="#BCBCBC" StrokeThickness="1.5" Opacity="0.48">
+                                            <Path.Data><PathGeometry><PathFigure StartPoint="130,45" IsClosed="False"><ArcSegment Point="95,80" Size="35,35" IsLargeArc="False" SweepDirection="Counterclockwise"/></PathFigure></PathGeometry></Path.Data>
+                                        </Path>
+                                        <Path Stroke="#CBCBCB" StrokeThickness="1.5" Opacity="0.42">
+                                            <Path.Data><PathGeometry><PathFigure StartPoint="130,30" IsClosed="False"><ArcSegment Point="80,80" Size="50,50" IsLargeArc="False" SweepDirection="Counterclockwise"/></PathFigure></PathGeometry></Path.Data>
+                                        </Path>
+                                        <Path Stroke="#ABABAB" StrokeThickness="1.5" Opacity="0.36">
+                                            <Path.Data><PathGeometry><PathFigure StartPoint="130,15" IsClosed="False"><ArcSegment Point="65,80" Size="65,65" IsLargeArc="False" SweepDirection="Counterclockwise"/></PathFigure></PathGeometry></Path.Data>
+                                        </Path>
+                                        <Path Stroke="#7B7B7B" StrokeThickness="1.5" Opacity="0.30">
+                                            <Path.Data><PathGeometry><PathFigure StartPoint="130,0" IsClosed="False"><ArcSegment Point="50,80" Size="80,80" IsLargeArc="False" SweepDirection="Counterclockwise"/></PathFigure></PathGeometry></Path.Data>
+                                        </Path>
+                                    </Canvas>
+                                    <!-- Person icon -->
+                                    <Canvas Width="22" Height="22" HorizontalAlignment="Left"
+                                            VerticalAlignment="Top" Margin="14,15,0,0"
+                                            IsHitTestVisible="False">
+                                        <Ellipse Canvas.Left="6" Canvas.Top="0" Width="10" Height="10" Fill="White"/>
+                                        <Path Fill="White" Data="M 1,22 Q 1,13 11,13 Q 21,13 21,22 Z"/>
+                                    </Canvas>
+                                    <!-- Label -->
+                                    <TextBlock x:Name="TabTxtFriends" Text="Friends"
+                                               HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                                               Margin="14,0,0,12"
+                                               Foreground="White" FontSize="11" FontWeight="SemiBold"/>
+                                </Grid>
+                            </Border>
+
+                            <!-- ── STATS tile ── -->
+                            <Border x:Name="TabBtnStats"
+                                    Grid.Row="0" Grid.Column="2"
+                                    CornerRadius="10"
+                                    Background="#101010"
+                                    BorderBrush="#1D1D1D" BorderThickness="1"
+                                    Cursor="Hand"
+                                    MouseLeftButtonUp="TabBtn_Click" Tag="stats"
+                                    ClipToBounds="True">
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#171717"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                                <Grid>
+                                    <Canvas Width="130" Height="80" HorizontalAlignment="Right"
+                                            VerticalAlignment="Bottom" IsHitTestVisible="False"
+                                            ClipToBounds="True">
+                                        <Path Stroke="#929292" StrokeThickness="1.5" Opacity="0.55">
+                                            <Path.Data><PathGeometry><PathFigure StartPoint="130,58" IsClosed="False"><ArcSegment Point="108,80" Size="22,22" IsLargeArc="False" SweepDirection="Counterclockwise"/></PathFigure></PathGeometry></Path.Data>
+                                        </Path>
+                                        <Path Stroke="#BCBCBC" StrokeThickness="1.5" Opacity="0.48">
+                                            <Path.Data><PathGeometry><PathFigure StartPoint="130,45" IsClosed="False"><ArcSegment Point="95,80" Size="35,35" IsLargeArc="False" SweepDirection="Counterclockwise"/></PathFigure></PathGeometry></Path.Data>
+                                        </Path>
+                                        <Path Stroke="#CBCBCB" StrokeThickness="1.5" Opacity="0.42">
+                                            <Path.Data><PathGeometry><PathFigure StartPoint="130,30" IsClosed="False"><ArcSegment Point="80,80" Size="50,50" IsLargeArc="False" SweepDirection="Counterclockwise"/></PathFigure></PathGeometry></Path.Data>
+                                        </Path>
+                                        <Path Stroke="#ABABAB" StrokeThickness="1.5" Opacity="0.36">
+                                            <Path.Data><PathGeometry><PathFigure StartPoint="130,15" IsClosed="False"><ArcSegment Point="65,80" Size="65,65" IsLargeArc="False" SweepDirection="Counterclockwise"/></PathFigure></PathGeometry></Path.Data>
+                                        </Path>
+                                        <Path Stroke="#7B7B7B" StrokeThickness="1.5" Opacity="0.30">
+                                            <Path.Data><PathGeometry><PathFigure StartPoint="130,0" IsClosed="False"><ArcSegment Point="50,80" Size="80,80" IsLargeArc="False" SweepDirection="Counterclockwise"/></PathFigure></PathGeometry></Path.Data>
+                                        </Path>
+                                    </Canvas>
+                                    <!-- Bar-chart icon -->
+                                    <Canvas Width="22" Height="20" HorizontalAlignment="Left"
+                                            VerticalAlignment="Top" Margin="14,16,0,0"
+                                            IsHitTestVisible="False">
+                                        <Rectangle Canvas.Left="0"  Canvas.Top="12" Width="5" Height="8"  Fill="White" RadiusX="1" RadiusY="1"/>
+                                        <Rectangle Canvas.Left="8"  Canvas.Top="4"  Width="5" Height="16" Fill="White" RadiusX="1" RadiusY="1"/>
+                                        <Rectangle Canvas.Left="16" Canvas.Top="8"  Width="5" Height="12" Fill="White" RadiusX="1" RadiusY="1"/>
+                                    </Canvas>
+                                    <TextBlock x:Name="TabTxtStats" Text="Stats"
+                                               HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                                               Margin="14,0,0,12"
+                                               Foreground="#5D5D5D" FontSize="11" FontWeight="SemiBold"/>
+                                </Grid>
+                            </Border>
+
+                            <!-- ── SESSION tile ── -->
+                            <Border x:Name="TabBtnSession"
+                                    Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
+                                    CornerRadius="10"
+                                    Background="#101010"
+                                    BorderBrush="#1D1D1D" BorderThickness="1"
+                                    Cursor="Hand"
+                                    MouseLeftButtonUp="TabBtn_Click" Tag="session"
+                                    ClipToBounds="True">
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="#171717"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                                <Grid>
+                                    <Canvas Width="130" Height="80" HorizontalAlignment="Right"
+                                            VerticalAlignment="Bottom" IsHitTestVisible="False"
+                                            ClipToBounds="True">
+                                        <Path Stroke="#929292" StrokeThickness="1.5" Opacity="0.55">
+                                            <Path.Data><PathGeometry><PathFigure StartPoint="130,58" IsClosed="False"><ArcSegment Point="108,80" Size="22,22" IsLargeArc="False" SweepDirection="Counterclockwise"/></PathFigure></PathGeometry></Path.Data>
+                                        </Path>
+                                        <Path Stroke="#BCBCBC" StrokeThickness="1.5" Opacity="0.48">
+                                            <Path.Data><PathGeometry><PathFigure StartPoint="130,45" IsClosed="False"><ArcSegment Point="95,80" Size="35,35" IsLargeArc="False" SweepDirection="Counterclockwise"/></PathFigure></PathGeometry></Path.Data>
+                                        </Path>
+                                        <Path Stroke="#CBCBCB" StrokeThickness="1.5" Opacity="0.42">
+                                            <Path.Data><PathGeometry><PathFigure StartPoint="130,30" IsClosed="False"><ArcSegment Point="80,80" Size="50,50" IsLargeArc="False" SweepDirection="Counterclockwise"/></PathFigure></PathGeometry></Path.Data>
+                                        </Path>
+                                        <Path Stroke="#ABABAB" StrokeThickness="1.5" Opacity="0.36">
+                                            <Path.Data><PathGeometry><PathFigure StartPoint="130,15" IsClosed="False"><ArcSegment Point="65,80" Size="65,65" IsLargeArc="False" SweepDirection="Counterclockwise"/></PathFigure></PathGeometry></Path.Data>
+                                        </Path>
+                                        <Path Stroke="#7B7B7B" StrokeThickness="1.5" Opacity="0.30">
+                                            <Path.Data><PathGeometry><PathFigure StartPoint="130,0" IsClosed="False"><ArcSegment Point="50,80" Size="80,80" IsLargeArc="False" SweepDirection="Counterclockwise"/></PathFigure></PathGeometry></Path.Data>
+                                        </Path>
+                                    </Canvas>
+                                    <!-- Clock icon -->
+                                    <Canvas Width="22" Height="22" HorizontalAlignment="Left"
+                                            VerticalAlignment="Top" Margin="14,15,0,0"
+                                            IsHitTestVisible="False">
+                                        <Ellipse Canvas.Left="1" Canvas.Top="1" Width="20" Height="20"
+                                                 Stroke="White" StrokeThickness="2"/>
+                                        <Line X1="11" Y1="11" X2="11" Y2="5.5"
+                                              Stroke="White" StrokeThickness="1.5" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
+                                        <Line X1="11" Y1="11" X2="15.5" Y2="14"
+                                              Stroke="White" StrokeThickness="1.5" StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
+                                    </Canvas>
+                                    <TextBlock x:Name="TabTxtSession" Text="Session"
+                                               HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                                               Margin="14,0,0,12"
+                                               Foreground="#5D5D5D" FontSize="11" FontWeight="SemiBold"/>
+                                </Grid>
+                            </Border>
+
+                        </Grid>
+                    </Border>
+
+                    <!-- ══ CONTENT ══ -->
+                    <Border Grid.Row="3" BorderBrush="#1B1B1B" BorderThickness="0,1,0,0">
+                        <Grid>
+
+                            <!-- ─── FRIENDS PANEL ─── -->
+                            <Grid x:Name="PanelFriends" Visibility="Visible">
+                                <ScrollViewer x:Name="FriendsScrollViewer"
+                                              VerticalScrollBarVisibility="Auto"
+                                              HorizontalScrollBarVisibility="Disabled">
+                                    <StackPanel>
+
+                                        <!-- Quick-stats cards -->
+                                        <Grid Margin="12,12,12,0">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="6"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Border Grid.Column="0" Background="#121212" CornerRadius="9"
+                                                    BorderBrush="#1D1D1D" BorderThickness="1" Padding="12,10">
+                                                <StackPanel>
+                                                    <TextBlock x:Name="FriendsOnlineStatText" Text="0"
+                                                               Foreground="#EDEDED" FontSize="20" FontWeight="Bold"/>
+                                                    <TextBlock Text="ONLINE" Foreground="#3D3D3D"
+                                                               FontSize="9" FontWeight="Bold" Margin="0,4,0,0"/>
+                                                </StackPanel>
+                                            </Border>
+                                            <Border Grid.Column="2" Background="#121212" CornerRadius="9"
+                                                    BorderBrush="#1D1D1D" BorderThickness="1" Padding="12,10">
+                                                <StackPanel>
+                                                    <TextBlock x:Name="FriendsTotalStatText" Text="0"
+                                                               Foreground="#EEEEEE" FontSize="20" FontWeight="Bold"/>
+                                                    <TextBlock Text="FRIENDS" Foreground="#3D3D3D"
+                                                               FontSize="9" FontWeight="Bold" Margin="0,4,0,0"/>
+                                                </StackPanel>
+                                            </Border>
+                                        </Grid>
+
+                                        <!-- Online section -->
+                                        <Grid Margin="14,12,14,7">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                                <Ellipse Width="6" Height="6" Fill="#494949"
+                                                         VerticalAlignment="Center" Margin="0,0,7,0"/>
+                                                <TextBlock Text="ONLINE" Foreground="#3D3D3D"
+                                                           FontSize="10" FontWeight="Bold"/>
+                                            </StackPanel>
+                                            <Border Grid.Column="1" Background="#171717" CornerRadius="8" Padding="8,2">
+                                                <TextBlock x:Name="OnlineCountText" Text="0"
+                                                           Foreground="#5D5D5D" FontSize="10" FontWeight="Bold"/>
+                                            </Border>
+                                        </Grid>
+                                        <StackPanel x:Name="FriendsActiveList" Margin="8,0,8,0"/>
+
+                                        <!-- Offline section -->
+                                        <Grid Margin="14,12,14,7">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                                <Ellipse Width="6" Height="6" Fill="#2B2B2B"
+                                                         VerticalAlignment="Center" Margin="0,0,7,0"/>
+                                                <TextBlock Text="OFFLINE" Foreground="#3D3D3D"
+                                                           FontSize="10" FontWeight="Bold"/>
+                                            </StackPanel>
+                                            <Border Grid.Column="1" Background="#171717" CornerRadius="8" Padding="8,2">
+                                                <TextBlock x:Name="OfflineCountText" Text="0"
+                                                           Foreground="#5D5D5D" FontSize="10" FontWeight="Bold"/>
+                                            </Border>
+                                        </Grid>
+                                        <StackPanel x:Name="FriendsOfflineList" Margin="8,0,8,0"/>
+
+
+                                    </StackPanel>
+                                </ScrollViewer>
+
+                                <!-- Chat view overlay -->
+                                <Grid x:Name="ChatView" Visibility="Collapsed" Background="#0A0A0A">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Border Grid.Row="0" Background="#121212"
+                                            BorderBrush="#1B1B1B" BorderThickness="0,0,0,1"
+                                            Padding="12,10,12,10">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Border Grid.Column="0" Width="30" Height="30" CornerRadius="6"
+                                                    Background="Transparent" Cursor="Hand" Margin="0,0,10,0"
+                                                    MouseLeftButtonUp="ChatBack_Click">
+                                                <Border.Style>
+                                                    <Style TargetType="Border">
+                                                        <Style.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter Property="Background" Value="#171717"/>
+                                                            </Trigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Border.Style>
+                                                <TextBlock Text="&#xE76B;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" Foreground="#5D5D5D" FontSize="13"
+                                                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                            <Border x:Name="ChatPartnerAvatar" Grid.Column="1"
+                                                    Width="34" Height="34" CornerRadius="17"
+                                                    Background="#3A3A3A" Margin="0,0,10,0"
+                                                    VerticalAlignment="Center">
+                                                <TextBlock x:Name="ChatPartnerInitials" Text="??"
+                                                           Foreground="White" FontSize="11" FontWeight="Bold"
+                                                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                            <StackPanel Grid.Column="2" VerticalAlignment="Center">
+                                                <TextBlock x:Name="ChatPartnerName" Text="—"
+                                                           Foreground="#EEEEEE" FontSize="13" FontWeight="SemiBold"/>
+                                                <TextBlock x:Name="ChatPartnerStatusText" Text="—"
+                                                           Foreground="#5D5D5D" FontSize="11" Margin="0,2,0,0"/>
+                                            </StackPanel>
+                                            <Border x:Name="ChatPartnerStatusPill" Grid.Column="3"
+                                                    Background="#1B1B1B" CornerRadius="4" Padding="6,2"
+                                                    VerticalAlignment="Center">
+                                                <TextBlock x:Name="ChatPartnerStatusLabel" Text="ONLINE"
+                                                           Foreground="#EDEDED" FontSize="9" FontWeight="Bold"/>
+                                            </Border>
+                                        </Grid>
+                                    </Border>
+
+                                    <ScrollViewer Grid.Row="1" x:Name="ChatScrollViewer"
+                                                  VerticalScrollBarVisibility="Auto"
+                                                  HorizontalScrollBarVisibility="Disabled">
+                                        <StackPanel x:Name="ChatMessagesList" Margin="12,10,12,10"/>
+                                    </ScrollViewer>
+
+                                    <Border Grid.Row="2" Background="#121212"
+                                            BorderBrush="#1B1B1B" BorderThickness="0,1,0,0"
+                                            Padding="12,10,12,10">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Border Grid.Column="0" Background="#171717" CornerRadius="9"
+                                                    BorderBrush="#232323" BorderThickness="1"
+                                                    Padding="11,9,11,9" Margin="0,0,8,0">
+                                                <Grid>
+                                                    <TextBlock Text="Type a message…" Foreground="#3D3D3D"
+                                                               IsHitTestVisible="False" VerticalAlignment="Center"
+                                                               FontSize="13">
+                                                        <TextBlock.Style>
+                                                            <Style TargetType="TextBlock">
+                                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                                <Style.Triggers>
+                                                                    <DataTrigger Binding="{Binding Text, ElementName=ChatInput}" Value="">
+                                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                                    </DataTrigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                        </TextBlock.Style>
+                                                    </TextBlock>
+                                                    <TextBox x:Name="ChatInput"
+                                                             Background="Transparent" Foreground="#EEEEEE"
+                                                             BorderThickness="0" FontSize="13"
+                                                             CaretBrush="#EDEDED" SelectionBrush="#EDEDED"
+                                                             VerticalAlignment="Center"
+                                                             KeyDown="ChatInput_KeyDown"/>
+                                                </Grid>
+                                            </Border>
+                                            <Border Grid.Column="1" Width="38" Height="38" CornerRadius="9"
+                                                    Background="#3A3A3A" Cursor="Hand"
+                                                    MouseLeftButtonUp="ChatSend_Click">
+                                                <Border.Style>
+                                                    <Style TargetType="Border">
+                                                        <Style.Triggers>
+                                                            <Trigger Property="IsMouseOver" Value="True">
+                                                                <Setter Property="Background" Value="#EDEDED"/>
+                                                            </Trigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </Border.Style>
+                                                <TextBlock Text="&#xE724;" FontFamily="Segoe Fluent Icons, Segoe MDL2 Assets" Foreground="White" FontSize="14"
+                                                           FontWeight="Bold"
+                                                           HorizontalAlignment="Center"
+                                                           VerticalAlignment="Center"/>
+                                            </Border>
+                                        </Grid>
+                                    </Border>
+                                </Grid>
+                            </Grid>
+
+                            <!-- ─── STATS PANEL ─── -->
+                            <ScrollViewer x:Name="PanelStats" Visibility="Collapsed"
+                                          VerticalScrollBarVisibility="Auto"
+                                          HorizontalScrollBarVisibility="Disabled">
+                                <StackPanel Margin="12,14,12,16">
+                                    <Grid Margin="0,0,0,6">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="6"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Border Grid.Column="0" Background="#121212" CornerRadius="10"
+                                                Padding="13,13,13,11" BorderBrush="#1F1F1F" BorderThickness="1">
+                                            <StackPanel>
+                                                <TextBlock x:Name="StatHours" Text="—"
+                                                           Foreground="#EEEEEE" FontSize="18" FontWeight="Bold"/>
+                                                <TextBlock Text="PLAYTIME" Foreground="#3D3D3D"
+                                                           FontSize="9" FontWeight="Bold" Margin="0,4,0,0"/>
+                                            </StackPanel>
+                                        </Border>
+                                        <Border Grid.Column="2" Background="#121212" CornerRadius="10"
+                                                Padding="13,13,13,11" BorderBrush="#1F1F1F" BorderThickness="1">
+                                            <StackPanel>
+                                                <TextBlock x:Name="StatSessions" Text="—"
+                                                           Foreground="#EEEEEE" FontSize="18" FontWeight="Bold"/>
+                                                <TextBlock Text="SESSIONS" Foreground="#3D3D3D"
+                                                           FontSize="9" FontWeight="Bold" Margin="0,4,0,0"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </Grid>
+                                    <Grid Margin="0,0,0,18">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="6"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Border Grid.Column="0" Background="#0A0A0A" CornerRadius="10"
+                                                Padding="13,13,13,11" BorderBrush="#1A1A1A" BorderThickness="1">
+                                            <StackPanel>
+                                                <TextBlock x:Name="StatFavVersion" Text="—"
+                                                           Foreground="#EDEDED" FontSize="14" FontWeight="Bold"
+                                                           TextTrimming="CharacterEllipsis"/>
+                                                <TextBlock Text="FAV VERSION" Foreground="#3D3D3D"
+                                                           FontSize="9" FontWeight="Bold" Margin="0,4,0,0"/>
+                                            </StackPanel>
+                                        </Border>
+                                        <Border Grid.Column="2" Background="#121212" CornerRadius="10"
+                                                Padding="13,13,13,11" BorderBrush="#1F1F1F" BorderThickness="1">
+                                            <StackPanel>
+                                                <TextBlock x:Name="StatSince" Text="—"
+                                                           Foreground="#EEEEEE" FontSize="14" FontWeight="Bold"
+                                                           TextTrimming="CharacterEllipsis"/>
+                                                <TextBlock Text="FIRST LAUNCH" Foreground="#3D3D3D"
+                                                           FontSize="9" FontWeight="Bold" Margin="0,4,0,0"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </Grid>
+                                    <TextBlock Text="MOST PLAYED" Foreground="#3D3D3D"
+                                               FontSize="10" FontWeight="Bold" Margin="2,0,0,8"/>
+                                    <WrapPanel x:Name="RecentVersionsList" Margin="0,0,0,20"/>
+                                    <TextBlock Text="COMMUNITY" Foreground="#3D3D3D"
+                                               FontSize="10" FontWeight="Bold" Margin="2,0,0,8"/>
+                                    <Border Background="#121212" CornerRadius="10"
+                                            BorderBrush="#1F1F1F" BorderThickness="1"
+                                            Padding="13,13,13,11">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="1"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <StackPanel Grid.Column="0">
+                                                <TextBlock x:Name="CommunityOnlineText" Text="—"
+                                                           Foreground="#EDEDED" FontSize="18" FontWeight="Bold"/>
+                                                <TextBlock Text="ONLINE NOW" Foreground="#3D3D3D"
+                                                           FontSize="9" FontWeight="Bold" Margin="0,4,0,0"/>
+                                            </StackPanel>
+                                            <Border Grid.Column="1" Background="#1F1F1F" Width="1"/>
+                                            <StackPanel Grid.Column="2" Margin="14,0,0,0">
+                                                <TextBlock x:Name="CommunityInGameText" Text="—"
+                                                           Foreground="#EDEDED" FontSize="18" FontWeight="Bold"/>
+                                                <TextBlock Text="IN GAME" Foreground="#3D3D3D"
+                                                           FontSize="9" FontWeight="Bold" Margin="0,4,0,0"/>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+                                </StackPanel>
+                            </ScrollViewer>
+
+                            <!-- ─── SESSION PANEL ─── -->
+                            <ScrollViewer x:Name="PanelSession" Visibility="Collapsed"
+                                          VerticalScrollBarVisibility="Auto"
+                                          HorizontalScrollBarVisibility="Disabled">
+                                <StackPanel Margin="0,14,0,16">
+                                    <Border Margin="12,0,12,12" Background="#121212" CornerRadius="12"
+                                            Padding="0,22" BorderBrush="#1F1F1F" BorderThickness="1">
+                                        <StackPanel HorizontalAlignment="Center">
+                                            <TextBlock x:Name="BigTimerText" Text="00:00:00"
+                                                       Foreground="#EEEEEE" FontSize="36" FontWeight="Bold"
+                                                       FontFamily="Consolas" HorizontalAlignment="Center"/>
+                                            <TextBlock Text="SESSION TIME" Foreground="#3D3D3D"
+                                                       FontSize="9" FontWeight="Bold"
+                                                       HorizontalAlignment="Center" Margin="0,7,0,0"/>
+                                        </StackPanel>
+                                    </Border>
+                                    <Border Margin="12,0,12,0" Background="#121212" CornerRadius="10"
+                                            BorderBrush="#1F1F1F" BorderThickness="1">
+                                        <StackPanel>
+                                            <Grid Margin="14,12,14,10">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="80"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Text="VERSION" Foreground="#3D3D3D" FontSize="10"
+                                                           FontWeight="Bold" VerticalAlignment="Center"/>
+                                                <TextBlock x:Name="SessVersion" Grid.Column="1" Text="—"
+                                                           Foreground="#EEEEEE" FontSize="12" FontWeight="SemiBold"
+                                                           TextTrimming="CharacterEllipsis"/>
+                                            </Grid>
+                                            <Border Background="#212121" Height="1" Margin="14,0,14,0"/>
+                                            <Grid Margin="14,10,14,10">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="80"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Text="MAP" Foreground="#3D3D3D" FontSize="10"
+                                                           FontWeight="Bold" VerticalAlignment="Center"/>
+                                                <TextBlock x:Name="SessMap" Grid.Column="1" Text="—"
+                                                           Foreground="#EEEEEE" FontSize="12" FontWeight="SemiBold"/>
+                                            </Grid>
+                                            <Border Background="#212121" Height="1" Margin="14,0,14,0"/>
+                                            <Grid Margin="14,10,14,10">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="80"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Text="GAMEMODE" Foreground="#3D3D3D" FontSize="10"
+                                                           FontWeight="Bold" VerticalAlignment="Center"/>
+                                                <TextBlock x:Name="SessMode" Grid.Column="1" Text="—"
+                                                           Foreground="#EEEEEE" FontSize="12" FontWeight="SemiBold"/>
+                                            </Grid>
+                                            <Border Background="#1A1A1A" Height="1" Margin="14,0,14,0"/>
+                                            <Grid Margin="14,10,14,12">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="80"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Text="OPERATOR" Foreground="#EDEDED" FontSize="10"
+                                                           FontWeight="Bold" VerticalAlignment="Center"/>
+                                                <TextBlock x:Name="SessOperator" Grid.Column="1" Text="—"
+                                                           Foreground="#EDEDED" FontSize="12" FontWeight="Bold"/>
+                                            </Grid>
+                                        </StackPanel>
+                                    </Border>
+                                </StackPanel>
+                            </ScrollViewer>
+
+                        </Grid>
+                    </Border>
+
+                </Grid>
+            </Border>
+
+            <!-- Accent strip -->
+            <Rectangle Grid.Column="1">
+                <Rectangle.Fill>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="#F0F0F0" Offset="0"/>
+                        <GradientStop Color="#BDBDBD" Offset="0.35"/>
+                        <GradientStop Color="#3A3A3A" Offset="1"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+        </Grid>
+    </Border>
+</Window>

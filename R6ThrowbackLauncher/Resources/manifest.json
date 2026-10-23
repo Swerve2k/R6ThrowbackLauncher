@@ -1,0 +1,552 @@
+{
+  "Y1": {
+    "S0": {
+      "name": "Vanilla",
+      "description": "The original Rainbow Six Siege at launch. Five operators per side, no seasonal operators, and a raw tactical atmosphere that defined the foundation of the game. Maps like House, Chalet, and Clubhouse were staples — featuring the era's punishing recoil, minimal HUD, and the unfiltered chaos of Year One.",
+      "0": {
+        "date": "2015-12-05",
+        "377237": 8358812283631269928,
+        "377238": 6835384933146381100,
+        "359551": 3893422760579204530,
+        "build": "8194013",
+        "sizeGb": 14.2
+      }
+    },
+    "S1": {
+      "name": "Black Ice",
+      "description": "The first seasonal update introduced Buck and Frost alongside the iconic Yacht map — a cruise ship overrun with tension and tight corridors. Black Ice brought the first glimpse of Ubisoft's seasonal content model and remains nostalgic for its fresh-feeling additions to the early meta.",
+      "0": {
+        "date": "2016-02-02",
+        "377237": 5188997148801516344,
+        "377238": 5362991837480196824,
+        "359551": 7932785808040895147,
+        "build": "8519860",
+        "sizeGb": 16.7
+      }
+    },
+    "S2": {
+      "name": "Dust Line",
+      "description": "Dust Line deployed Blackbeard and Valkyrie onto the Border map — a militarized checkpoint at the edge of a desert. Blackbeard's rifle shield sparked immediate controversy, while Valkyrie's multi-cam gadget quietly revolutionized defensive intel gathering. A pivotal season for the game's evolving meta.",
+      "0": {
+        "date": "2016-05-11",
+        "377237": 2303064029242396590,
+        "377238": 3040224537841664111,
+        "359551": 2206497318678061176,
+        "build": "9132097",
+        "sizeGb": 20.9
+      }
+    },
+    "S3": {
+      "name": "Skull Rain",
+      "description": "Brazil came to Siege with Capitão and Caveira on the Favela map — a vibrant yet deadly slum setting. Caveira's Silent Step and Interrogation ability became one of the most feared in the game. Skull Rain represented Siege's first deep dive into South American culture and remains a fan favourite era.",
+      "5": {
+        "date": "2016-09-13",
+        "377237": 5819137024728546741,
+        "377238": 2956768406107766016,
+        "359551": 5851804596427790505,
+        "build": "9860556",
+        "sizeGb": 25.1
+      }
+    },
+    "S4": {
+      "name": "Red Crow",
+      "description": "Japan entered the roster with Echo and Hibana on the Skyscraper map — a traditional Japanese penthouse turned battlefield. Echo's Yokai drone provided unprecedented ceiling-based surveillance, while Hibana's X-KAIROS pellets gave attackers new ways to breach reinforced walls. A sleek, high-skill season.",
+      "0": {
+        "date": "2016-11-17",
+        "377237": 3576607363557872807,
+        "377238": 912564683190696342,
+        "359551": 8569920171217002292,
+        "build": "10211195",
+        "sizeGb": 28.5
+      }
+    }
+  },
+  "Y2": {
+    "S1": {
+      "name": "Velvet Shell",
+      "description": "Spain joined the fray with Mira and Jackal on the Coastline map — a luxurious Iberian resort. Mira's Black Mirror introduced a game-changing one-way window mechanic that fundamentally altered defensive setups. Jackal's Eyenox tracker made roaming riskier. Velvet Shell is widely considered one of the best seasons in Siege history.",
+      "0": {
+        "date": "2017-02-07",
+        "377237": 2248734317261478192,
+        "377238": 2687181326074258760,
+        "359551": 8006071763917433748,
+        "build": "10751226",
+        "sizeGb": 33.2
+      }
+    },
+    "S2": {
+      "name": "Health",
+      "description": "No new operators — Health was Ubisoft's commitment to fixing the game's technical foundation. Hit registration improvements, game stability fixes, and quality-of-life updates were the focus. Though light on content, Health restored player trust and paved the way for Years 3 and 4's ambitious expansions.",
+      "0": {
+        "date": "2017-06-07",
+        "377237": 5875987479498297665,
+        "377238": 8542242518901049325,
+        "359551": 708773000306432190,
+        "build": "11216230",
+        "sizeGb": 34.0
+      }
+    },
+    "S3": {
+      "name": "Blood Orchid",
+      "description": "Three operators arrived in one season — Ela, Zofia, and Lesion — alongside the Theme Park map set in an abandoned Hong Kong amusement park. Lesion's invisible Gu needles became a staple of defensive play, and Ela's Grzmot concussion mines provided unmatched area denial. One of the most content-rich seasons ever released.",
+      "2": {
+        "date": "2017-09-19",
+        "377237": 6708129824495912434,
+        "377238": 4662662335520989204,
+        "359551": 1613631671988840841,
+        "build": "11432634",
+        "sizeGb": 34.3
+      }
+    },
+    "S4": {
+      "name": "White Noise",
+      "description": "South Korea entered Siege with Dokkaebi, Vigil, and Zofia's counterpart Dokkaebi on the Tower map — a futuristic skyscraper with brutal vertical angles. Dokkaebi's Logic Bomb hack and Vigil's ECM jammer brought new electronic warfare to the roster. A technically complex and visually striking season.",
+      "1": {
+        "date": "2017-11-14",
+        "377237": 8748734086032257441,
+        "377238": 8421028160473337894,
+        "359551": 4221297486420648079,
+        "build": "11580709",
+        "sizeGb": 48.7
+      }
+    }
+  },
+  "Y3": {
+    "S1": {
+      "name": "Chimera",
+      "description": "The first co-op PvE event arrived with Outbreak alongside operators Lion and Finka. Lion's Rift sensor wallhack scanners caused immediate balance controversy, while Finka's adrenaline surge kept her teammates alive under fire. Chimera marked Siege's boldest experiment with narrative-driven content.",
+      "0": {
+        "date": "2018-03-06",
+        "377237": 5071357104726974256,
+        "377238": 4768963659370299631,
+        "359551": 4701787239566783972,
+        "build": "11726982",
+        "sizeGb": 58.8
+      }
+    },
+    "S2": {
+      "name": "Para Bellum",
+      "description": "Italy brought Maestro and Alibi to the Villa map — a sprawling countryside manor with hidden rooms and dangerous sightlines. Maestro's Evil Eye turrets and Alibi's holographic decoys added new layers of deception to the defender toolkit. Villa became one of the game's most visually stunning and tactically rich maps.",
+      "0": {
+        "date": "2018-06-07",
+        "377237": 6507886921175556869,
+        "377238": 7995779530685147208,
+        "359551": 8765715607275074515,
+        "build": "11965022",
+        "sizeGb": 63.3
+      }
+    },
+    "S3": {
+      "name": "Grim Sky",
+      "description": "Hereford Base received a complete rework alongside new operators Maverick and Clash on the Skyscraper rework. Maverick's blowtorch became the definitive counter to Bandit and Kaid tricking, while Clash became the game's first operator with a ballistic shield that could deploy while holding a weapon.",
+      "5": {
+        "date": "2018-10-18",
+        "377237": 5562094852451837435,
+        "377238": 3144556314994867170,
+        "359551": 7781202564071310413,
+        "build": "12362767",
+        "sizeGb": 72.6
+      }
+    },
+    "S4": {
+      "name": "Wind Bastion",
+      "description": "Morocco joined the roster with Nomad and Kaid alongside the Fortress map — a remote desert stronghold. Kaid's Rtila tricking on reinforced walls became a staple of high-level defensive play, and Nomad's airjab mines punished aggressive flanks. Wind Bastion closed out Year 3 with gritty North African style.",
+      "0": {
+        "date": "2018-12-04",
+        "377237": 6502258854032233436,
+        "377238": 3144556314994867170,
+        "359551": 7659555540733025386,
+        "build": "12512571",
+        "sizeGb": 76.9
+      }
+    }
+  },
+  "Y4": {
+    "S1": {
+      "name": "Burnt Horizon",
+      "description": "Australia came to Siege with Gridlock and Mozzie on the Outback map — a sun-scorched roadhouse in the middle of nowhere. Mozzie's Pest drones flipped attacker cameras against them, becoming one of the most creative gadgets in the game. Burnt Horizon kicked off what many consider Siege's golden competitive era.",
+      "2": {
+        "date": "2019-03-14",
+        "377237": 8356277316976403078,
+        "377238": 3777349673527123995,
+        "359551": 5935578581006804383,
+        "build": "12863847",
+        "sizeGb": 58.8
+      }
+    },
+    "S2": {
+      "name": "Phantom Sight",
+      "description": "Nokk and Warden arrived without a new map but with significant balance overhauls. Nokk's HEL device turned her nearly invisible to cameras and Pulse's Heartbeat Sensor, enabling elite flanks. Warden's Glance Smart Glasses countered flashes and smoke. A quieter season focused on operator depth over breadth.",
+      "0": {
+        "date": "2019-06-11",
+        "377237": 693082837425613508,
+        "377238": 3326664059403997209,
+        "359551": 5408324128694463720,
+        "build": "13147883",
+        "sizeGb": 67.1
+      }
+    },
+    "S3": {
+      "name": "Ember Rise",
+      "description": "Mexico's Amaru and Goyo joined the fight alongside a rework of Kanal. Amaru's Garra Hook became the game's first grappling hook mechanic, letting attackers instantly breach windows and hatches. Goyo's Volcan shields created lethal kill zones. Ember Rise pushed Siege's verticality and map control to new extremes.",
+      "4": {
+        "date": "2019-10-22",
+        "377237": 3546781236735558235,
+        "377238": 684480090862996679,
+        "359551": 7869081741739849703,
+        "build": "13632147",
+        "sizeGb": 69.6
+      }
+    },
+    "S4": {
+      "name": "Shifting Tides",
+      "description": "Kenya and India brought Kali and Wamai to the reworked Theme Park. Kali's LV Lance underbarrel launcher could pierce through floors and walls to destroy defender gadgets — a revolutionary attacker utility. Wamai's Mag-NET could redirect grenades and projectiles mid-air. A high-concept season with deep strategic implications.",
+      "0": {
+        "date": "2019-12-03",
+        "377237": 299124516841461614,
+        "377238": 510172308722680354,
+        "359551": 1842268638395240106,
+        "build": "13777760",
+        "sizeGb": 75.2
+      }
+    }
+  },
+  "Y5": {
+    "S1": {
+      "name": "Void Edge",
+      "description": "Iana and Oryx debuted alongside a Oregon rework during the COVID-19 pandemic. Iana's Gemini Replicator holographic clone allowed safe reconnaissance deep into defended sites. Oryx's Remah Dash let him sprint through soft walls bare-handed — a unique movement tool unlike anything before. Void Edge launched the work-from-home era of Siege.",
+      "5": {
+        "date": "2020-04-30",
+        "377237": 4736360397583523381,
+        "377238": 2583838033617047180,
+        "359551": 6296533808765702678,
+        "build": "14303219",
+        "sizeGb": 74.3
+      }
+    },
+    "S2": {
+      "name": "Steel Wave",
+      "description": "Norway and the USA united in Ace and Melusi alongside a House rework. Ace's S.E.L.M.A. breaching device shattered reinforced walls and floor hatches autonomously. Melusi's Banshee proximity device slowed attackers and became a cornerstone of area denial. Steel Wave delivered high-utility operators that shaped the Year 5 meta.",
+      "5": {
+        "date": "2020-08-10",
+        "377237": 4367817844736324940,
+        "377238": 5838065097101371940,
+        "359551": 893971391196952070,
+        "build": "14664131",
+        "sizeGb": 81.3
+      }
+    },
+    "S3": {
+      "name": "Shadow Legacy",
+      "description": "Zero — Sam Fisher from Splinter Cell — arrived as a crossover operator alongside a Chalet rework. Zero's Argus Cameras could pierce walls and embed cameras on both sides, giving unprecedented dual-surface intel. Minimap and ping improvements also debuted. Shadow Legacy is remembered as one of the most impactful mid-year patches in Siege history.",
+      "5": {
+        "date": "2020-11-17",
+        "377237": 85893637567200342,
+        "377238": 4020038723910014041,
+        "359551": 3089981610366186823,
+        "build": "15018155",
+        "sizeGb": 88.0
+      }
+    },
+    "S4": {
+      "name": "Neon Dawn",
+      "description": "Thailand introduced Aruni to the reworked Skyscraper map. Aruni's Surya Gate projected laser barriers across doorways and hatches, destroying projectiles and damaging operators who crossed them. Her Panzerfaust passive let her punch reinforced walls and gadgets with extra durability. Neon Dawn closed Year 5 with a neon-soaked aesthetic and a gadget that redefined defensive zoning.",
+      "2": {
+        "date": "2021-01-19",
+        "isHeatedMetal": true,
+        "377237": 3390446325154338855,
+        "377238": 3175150742361965235,
+        "359551": 6947060999143280245,
+        "build": "15241382",
+        "sizeGb": 57.0
+      },
+      "4": {
+        "date": "2021-02-03",
+        "377237": 4713320084981112320,
+        "377238": 3560446343418579092,
+        "359551": 3711873929777458413,
+        "sizeGb": 57.0
+      }
+    }
+  },
+  "Y6": {
+    "S1": {
+      "name": "Crimson Heist",
+      "description": "Argentina's Flores and the Border rework opened Year 6 with the introduction of the Battle Pass system. Flores's RCE-Ratero remote-controlled drone could detonate on command to destroy defender gadgets. A new reputation system and massive UI overhaul accompanied the season, marking a new era in Siege's commercial and social infrastructure.",
+      "1": {
+        "date": "2021-03-30",
+        "377237": 7890853311380514304,
+        "377238": 6130917224459224462,
+        "359551": 7485515457663576274,
+        "sizeGb": 44.9
+      }
+    },
+    "S2": {
+      "name": "North Star",
+      "description": "Thunderbird brought indigenous Nakoda Nation representation to Siege alongside a Favela rework. Her Kóna healing stations could revive downed teammates automatically — a controversial but powerful gadget. North Star also introduced the Observation Tool rework, giving all defenders a deployable camera at round start. A landmark season for diversity in Siege.",
+      "0": {
+        "date": "2021-06-14",
+        "377237": 8733653062998518164,
+        "377238": 6767916709017546201,
+        "359551": 809542866761090243,
+        "sizeGb": 62.1
+      }
+    },
+    "S3": {
+      "name": "Crystal Guard",
+      "description": "Osa introduced a transparent deployable shield called Talon-8 that could be placed in windows and doorways, creating new attacker-side holding positions. Clubhouse and Coastline received reworks. Crystal Guard also launched the new operator introduction cinematic format, raising the bar for storytelling within Siege's seasonal content.",
+      "0": {
+        "date": "2021-09-07",
+        "377237": 4859695099882698284,
+        "377238": 5161489294178683219,
+        "359551": 6526531850721822265,
+        "sizeGb": 50.3
+      }
+    },
+    "S4": {
+      "name": "High Calibre",
+      "description": "Scotland's Thorn arrived with the Outback rework and a new ranked map pool system. Thorn's Razorbloom proximity grenade exploded after a short delay, punishing rushes through doorways and stairwells. High Calibre refined competitive Siege significantly, introducing the map ban system that became a fixture of ranked and professional play.",
+      "3": {
+        "date": "2022-01-25",
+        "377237": 2637055726475611418,
+        "377238": 2074678920289758165,
+        "359551": 8627214406801860013,
+        "build": "37046065",
+        "sizeGb": 54.2
+      }
+    }
+  },
+  "Y7": {
+    "S1": {
+      "name": "Demon Veil",
+      "description": "Japan returned with Azami and a Emerald Plains map debut. Azami's Kibana cartridges created indestructible shield surfaces mid-air — a breakthrough for creative defender barricading. Demon Veil also introduced the Attacker Repick mechanic, letting attackers swap operators mid-preparation phase. A season that fundamentally changed how teams prepared for rounds.",
+      "2": {
+        "date": "2022-04-19",
+        "359551": 8323869632165751287,
+        "377237": 1970003626423861715,
+        "377238": 2178080523228113690,
+        "sizeGb": 58.8
+      }
+    },
+    "S2": {
+      "name": "Vector Glare",
+      "description": "Sens arrived from Belgium with an unconventional gadget — the R.O.U. Projector System, which deployed rolling holographic walls to obscure sightlines. Vector Glare also brought the largest overhaul to the game's anti-cheat and fairness systems to date. A season marked by innovation both in operator design and behind-the-scenes infrastructure.",
+      "4": {
+        "date": "2022-08-09",
+        "377237": 1363132201391540345,
+        "377238": 4500117484519539380,
+        "359551": 133280937611742404,
+        "build": "43489433",
+        "sizeGb": 58.8
+      }
+    },
+    "S3": {
+      "name": "Brutal Swarm",
+      "description": "South Korea's Grim brought the Kawan Hive Launcher — a drone that deployed a swarm of micro-drones to tag attackers through walls, revealing their position. Brutal Swarm also reworked Nighthaven Labs and introduced significant changes to ranked format. The season's aggressive aesthetic and cutting-edge tech made it a fan favourite for Year 7.",
+      "6": {
+        "date": "2022-11-16",
+        "377237": 6425223567680952075,
+        "377238": 4623590620762156001,
+        "359551": 5906302942203575464,
+        "build": "47165842",
+        "sizeGb": 49.2
+      }
+    },
+    "S4": {
+      "name": "Solar Raid",
+      "description": "Colombia's Solis closed Year 7 with the SPEC-IO Electro-Sensor, letting her detect and identify all attacker gadgets through walls during a scanning burst. Solar Raid also introduced cross-play between console platforms and launched the Ranked 2.0 system — overhauling MMR, match quality, and the progression ladder that remains in place today.",
+      "4": {
+        "date": "2023-02-07",
+        "377237": 4466027729495813039,
+        "377238": 5107849703917033235,
+        "359551": 1819898955518120444,
+        "build": "50497889",
+        "sizeGb": 51.1
+      }
+    }
+  },
+  "Y8": {
+    "S1": {
+      "name": "Commanding Force",
+      "description": "Ram joined from South Korea with the BU-GI Auto Breacher — a remote-controlled device that drives into walls and autonomously destroys every reinforcement it encounters. Commanding Force also reworked Stadium and introduced the operator loadout customisation overhaul. An action-heavy season built around aggressive attacker pressure and vertical destruction.",
+      "6": {
+        "date": "2023-05-09",
+        "377237": 3275824905781062648,
+        "377238": 1252692309389076318,
+        "359551": 5863062164463920572,
+        "build": "55217154",
+        "sizeGb": 53.8
+      }
+    },
+    "S2": {
+      "name": "Dread Factor",
+      "description": "Fenrir arrived from Sweden with the F-NATT Dread Mine — a proximity device that triggered a fear-inducing vision effect on any attacker who looked at it, blinding peripheral sight. Dread Factor reworked Consulate and continued Year 8's focus on psychological operator design. A season built on tension, manipulation, and information warfare.",
+      "3": {
+        "date": "2023-07-11",
+        "377237": 4313757428310343948,
+        "377238": 4293396692730784956,
+        "359551": 5581702357198571389,
+        "build": "58222837",
+        "sizeGb": 55.0
+      }
+    },
+    "S3": {
+      "name": "Heavy Mettle",
+      "description": "Tubarão from Brazil brought a unique utility in the Zoto Canister — a device that froze defender gadgets in place, disabling them temporarily on contact. Heavy Mettle also launched a massive improvement to the ping system and introduced a new training ground mode. A mid-year season focused on refining competitive balance.",
+      "3": {
+        "date": "2023-10-10",
+        "377237": 2068160275622519212,
+        "377238": 2579928666708989224,
+        "359551": 3005637025719884427,
+        "build": "62486471",
+        "sizeGb": 54.8
+      }
+    },
+    "S4": {
+      "name": "Deep Freeze",
+      "description": "Deimos closed Year 8 as Siege's first fully autonomous operator — his DeathMARK tracker hunted the last attacker standing in overtime, revealed their position, and pursued them until the round ended. Deep Freeze also introduced the Arctic Coastline limited event map. A high-drama season that embraced Siege's increasingly cinematic direction.",
+      "4": {
+        "date": "2024-02-15",
+        "377237": 7646647065987620875,
+        "377238": 8339919149418587132,
+        "359551": 4957295777170965935,
+        "build": "67466841",
+        "sizeGb": 52.9
+      }
+    }
+  },
+  "Y9": {
+    "S1": {
+      "name": "Deadly Omen",
+      "description": "Rauora opened Year 9 with the Pariah shield — a fast-deploying full-body ballistic shield that could be deployed and retracted mid-engagement, redefining attacker hard breach options. Deadly Omen also overhauled the reputation and behaviour systems with new punishment and reward tiers. A season focused on both frontline aggression and community health.",
+      "3": {
+        "date": "2024-04-09",
+        "377237": 1959067516419454682,
+        "377238": 1619182300337183882,
+        "359551": 1140469899661941149,
+        "build": "69866602",
+        "sizeGb": 54.4
+      }
+    },
+    "S2": {
+      "name": "New Blood",
+      "description": "New Blood reimagined the Siege experience for new players with redesigned tutorials, an overhauled welcome program, and a new attacker Recruit option. It also introduced Heated Metal — a legacy Season Zero build available to players who own the original Year 1 content. An important bridging season between Siege's competitive present and historical legacy.",
+      "0": {
+        "date": "2024-07-11",
+        "isHeatedMetal": true,
+        "377237": 6874184890918352263,
+        "377238": 3648252944070415883,
+        "359551": 2171250367116101899,
+        "build": "72730050",
+        "sizeGb": 56.0
+      },
+      "6": {
+        "date": "2024-07-25",
+        "377237": 8160812118480939262,
+        "377238": 2207285510020603118,
+        "359551": 3303120421075579181,
+        "sizeGb": 56.0
+      }
+    },
+    "S3": {
+      "name": "Twin Shells",
+      "description": "Twin Shells brought Skopos — a Greek defender whose Iris deployable could scan, track, and relay attacker positions through a unique multi-stage drone ability. The season also reworked Consulate and introduced significant soft destruction physics improvements. Twin Shells embraced surveillance and spatial awareness as its core design theme.",
+      "6": {
+        "date": "2024-11-07",
+        "377237": 4296569502001540403,
+        "377238": 3038245830342960035,
+        "359551": 825321500774263546,
+        "build": "79429095",
+        "sizeGb": 59.2
+      }
+    },
+    "S4": {
+      "name": "Collision Point",
+      "description": "Collision Point introduced Striker and Sentry — two operators built from recycled tech salvaged from previous seasons, embodying Siege's lore of resource scarcity. Their gadgets featured repurposed drone chassis and adaptive breach tools. The season leaned into narrative-driven design and closed Year 9 with a cinematic short film bridging the story into Year 10.",
+      "3": {
+        "date": "2025-01-21",
+        "377237": 9207916394092784817,
+        "377238": 6303744364362141965,
+        "359551": 3039751959139581613,
+        "build": "82873685",
+        "sizeGb": 59.2
+      }
+    }
+  },
+  "Y10": {
+    "S1": {
+      "name": "Prep Phase",
+      "description": "Year 10 opened with Prep Phase — a season focused on the escalating conflict between Rainbow and Nighthaven. New operator Deacon brought an experimental cloaking system that briefly rendered him invisible to cameras during a short window. Prep Phase also launched the Year 10 Battle Pass and a rework of Kanal with updated lighting and soft destruction zones.",
+      "4": {
+        "date": "2025-04-16",
+        "377237": 8382986432868135995,
+        "377238": 3364322644809414267,
+        "359551": 2619322944995294928,
+        "build": "87835624",
+        "sizeGb": 51.4
+      }
+    },
+    "S2": {
+      "name": "Day Break",
+      "description": "Day Break deployed Riptide — a fast-moving attacker from New Zealand whose Hydrojet Pack enabled brief high-speed dashes through doorways and tight corridors, bypassing defender traps and denial gadgets. The season reworked Hereford Base again and introduced an expanded spectator camera system for community tournament broadcasts.",
+      "2": {
+        "date": "2025-06-25",
+        "377237": 6185866687945877979,
+        "377238": 1824670522228133032,
+        "359551": 6061565907083200123,
+        "build": "91107972",
+        "sizeGb": 57.6
+      }
+    },
+    "S3": {
+      "name": "High Stakes",
+      "description": "High Stakes raised the intensity with Cipher — an attacker whose Sigint Array could intercept and briefly disable any active defender gadget in range, forcing defenders to time their ability usage carefully. The season introduced a new ranked format with shorter match timers and targeted major esports infrastructure upgrades ahead of the Year 10 invitational.",
+      "4": {
+        "date": "2025-11-05",
+        "377237": 6414584647978564432,
+        "377238": 1658045533304550915,
+        "359551": 2991287519065391053,
+        "build": "97612398",
+        "sizeGb": 64.1
+      }
+    },
+    "S4": {
+      "name": "Tenfold Pursuit",
+      "description": "Tenfold Pursuit closed out Year 10 with a reworked Thatcher and his E.G.S. Disruptor, alongside an updated Fortress map and the Freeze For All winter event.",
+      "0": {
+        "date": "2025-12-02",
+        "build": "101173381",
+        "sizeGb": 64.1,
+        "377237": 5312359447964179543,
+        "377238": 10916617612972931,
+        "359551": 4662717791508703860
+      }
+    }
+  },
+  "Y11": {
+    "S1": {
+      "name": "Silent Hunt",
+      "description": "Year 11 opened with guest operator Solid Snake and his Soliton Radar MKIII, alongside a return of the Rainbow is Magic event.",
+      "0": {
+        "date": "2026-03-03",
+        "build": "108519331",
+        "sizeGb": 47.8,
+        "377237": 6538965566725574323,
+        "377238": 5822704009378799838,
+        "359551": 4262752188904831422
+      }
+    },
+    "S2": {
+      "name": "System Override",
+      "description": "System Override reworked Dokkaebi around the new Jegeo Payload gadget and added the Calypso Casino map, with another run of the Rengoku event.",
+      "0": {
+        "date": "2026-06-02",
+        "build": "114706078",
+        "sizeGb": 45.6,
+        "377237": 3438364557114734245,
+        "377238": 3173464615412315924,
+        "359551": 8562525939111846234
+      }
+    }
+  }
+}

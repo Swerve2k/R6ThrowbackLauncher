@@ -1,0 +1,10 @@
+bin/
+obj/
+.vs/
+.claude/
+*.user
+installer_output/
+CLAUDE.md
+# Third-party Heated Metal files are bundled in the installer, not kept in the public repo.
+R6ThrowbackLauncher/Resources/HeatedMetal/
+R6ThrowbackLauncher/Resources/HeatedMetal_NewBlood.zip
