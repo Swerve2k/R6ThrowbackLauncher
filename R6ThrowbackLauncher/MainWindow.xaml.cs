@@ -140,6 +140,7 @@ namespace R6ThrowbackLauncher
             if (sender == NavHome)        { ShowView(HomeView, "Home", NavHome); BuildHome(); }
             else if (sender == NavBrowse) { ShowView(BrowseView, "Browse seasons", NavBrowse); BuildBrowse(); }
             else if (sender == NavDownloads) { ShowView(DownloadsView, "Downloads", NavDownloads); BuildDownloadsView(force: true); }
+            else if (sender == NavMods)   { ShowView(ModsView, "Modifications", NavMods); BuildModsView(); }
             else if (sender == NavFriends) { ShowView(FriendsView, "Friends", NavFriends); BuildFriendsView(); }
             else if (sender == NavLeaderboard) { ShowView(LeaderboardView, "Leaderboard", NavLeaderboard); _ = LoadLeaderboardAsync(); }
             else if (sender == NavStats)  { ShowView(StatsView, "Stats", NavStats); BuildStatsView(); }
@@ -185,7 +186,7 @@ namespace R6ThrowbackLauncher
 
         private IEnumerable<RadioButton> NavItems() => new[]
         {
-            NavHome, NavBrowse, NavDownloads, NavFriends, NavLeaderboard, NavStats, NavStorage, NavUpdates, NavSettings,
+            NavHome, NavBrowse, NavDownloads, NavMods, NavFriends, NavLeaderboard, NavStats, NavStorage, NavUpdates, NavSettings,
         };
 
         private void GoBack()

@@ -17,7 +17,14 @@ using R6ThrowbackLauncher.Models;
 
 namespace R6ThrowbackLauncher.Services
 {
-    public sealed record LiberatorState(bool Attached, bool Unlocked, bool Unsupported);
+    public sealed record LiberatorState(bool Attached, bool Unlocked, bool Unsupported, bool FullFeature,
+        IReadOnlyDictionary<string, bool> Capabilities, string? Error)
+    {
+        public static readonly LiberatorState Idle = new(false, false, false, false, new Dictionary<string, bool>(), null);
+
+        /// <summary>True when the attached build supports this mod and Liberator has finished unlocking.</summary>
+        public bool Can(string capability) => Unlocked && FullFeature && Capabilities.TryGetValue(capability, out bool on) && on;
+    }
 
     /// <summary>
     /// "Unlock all" through Liberator, a separate GPLv3 program by xeralin
@@ -196,40 +203,84 @@ namespace R6ThrowbackLauncher.Services
         }
     }
 
-    /// <summary>Runs Liberator for one game session and relays its state. Restarts it with backoff if it drops out.</summary>
+    /// <summary>One entry in a build's game-mode tree. Leaves (no children) can be picked.</summary>
+    public sealed record PlaylistNode(string Text, string Id, IReadOnlyList<PlaylistNode> Children);
+
+    /// <summary>
+    /// Runs Liberator for one game session, relays its state and game-mode tree, and sends it mod and
+    /// playlist commands. Restarts it with backoff if it drops out.
+    /// </summary>
     public sealed class LiberatorSession : IDisposable
     {
         private readonly CancellationTokenSource _cts = new();
+        private readonly object _sendLock = new();
         private Process? _proc;
+        private NetworkStream? _stream;
 
         public event Action<LiberatorState>? StateChanged;
-        public LiberatorState State { get; private set; } = new(false, false, false);
+        public event Action<IReadOnlyList<PlaylistNode>?>? TreeChanged;
+        public LiberatorState State { get; private set; } = LiberatorState.Idle;
+        public IReadOnlyList<PlaylistNode>? Tree { get; private set; }
 
         public void Start() => _ = RunAsync(_cts.Token);
+
+        public void SetMod(string mod, bool enabled) => Send(new Dictionary<string, object> { ["cmd"] = "setMod", ["mod"] = mod, ["enabled"] = enabled });
+        public void SetPlaylist(string id) => Send(new Dictionary<string, object> { ["cmd"] = "setPlaylist", ["playlistId"] = id });
+        public void EndRound() => Send(new Dictionary<string, object> { ["cmd"] = "endRound" });
+        public void EndMatch() => Send(new Dictionary<string, object> { ["cmd"] = "endMatch" });
+
+        private void Send(Dictionary<string, object> payload)
+        {
+            byte[] line = Encoding.UTF8.GetBytes(JsonSerializer.Serialize(payload) + "\n");
+            lock (_sendLock)
+            {
+                try { _stream?.Write(line); } catch { }
+            }
+        }
+
+        private void Publish(LiberatorState state)
+        {
+            State = state;
+            StateChanged?.Invoke(state);
+        }
 
         private async Task RunAsync(CancellationToken ct)
         {
             double delay = 1.5;
+            int failures = 0;
             for (int attempt = 0; attempt < 10 && !ct.IsCancellationRequested; attempt++)
             {
                 try
                 {
-                    if (await RunOnceAsync(ct)) delay = 1.5;
+                    if (await RunOnceAsync(ct)) { delay = 1.5; failures = 0; }
+                    else failures++;
+                }
+                catch (System.ComponentModel.Win32Exception ex)
+                {
+                    // Usually antivirus blocking or removing the file.
+                    Publish(LiberatorState.Idle with { Error = "Liberator couldn't start: " + ex.Message });
+                    return;
                 }
                 catch (Exception ex) when (ex is not OperationCanceledException)
                 {
                     Debug.WriteLine($"[Liberator] {ex.Message}");
+                    failures++;
                 }
                 if (ct.IsCancellationRequested || State.Unsupported) break;
+                if (failures >= 3 && State.Error == null)
+                    Publish(State with { Error = "Liberator keeps stopping. Retrying." });
                 try { await Task.Delay(TimeSpan.FromSeconds(delay), ct); } catch { break; }
                 delay = Math.Min(delay * 2, 30);
             }
+            if (!ct.IsCancellationRequested && !State.Unsupported && !State.Unlocked)
+                Publish(State with { Error = State.Error ?? "Liberator couldn't attach to the game." });
         }
 
         /// <summary>One Liberator run. True if it connected.</summary>
         private async Task<bool> RunOnceAsync(CancellationToken ct)
         {
-            if (!LiberatorService.IsInstalled) return false;
+            if (!LiberatorService.IsInstalled)
+                throw new System.ComponentModel.Win32Exception("Liberator.exe is missing. Download it again on the Modifications page.");
             var listener = new TcpListener(IPAddress.Loopback, 0);
             listener.Start();
             try
@@ -252,43 +303,61 @@ namespace R6ThrowbackLauncher.Services
                 if (await Task.WhenAny(acceptTask, exitTask) != acceptTask || !acceptTask.IsCompletedSuccessfully) return false;
 
                 using var client = acceptTask.Result;
+                lock (_sendLock) _stream = client.GetStream();
                 using var reader = new StreamReader(client.GetStream(), Encoding.UTF8);
                 while (!ct.IsCancellationRequested)
                 {
                     string? line = await reader.ReadLineAsync(ct);
                     if (line == null) break;
-                    if (ParseState(line) is { } state && state != State)
-                    {
-                        State = state;
-                        StateChanged?.Invoke(state);
-                    }
+                    Handle(line);
                 }
                 return true;
             }
             finally
             {
+                lock (_sendLock) _stream = null;
                 listener.Stop();
                 Kill();
-                if (State.Attached || State.Unlocked)
-                {
-                    State = State with { Attached = false };
-                    StateChanged?.Invoke(State);
-                }
+                if (State.Attached || State.Unlocked) Publish(State with { Attached = false, Unlocked = false });
+                if (Tree != null) { Tree = null; TreeChanged?.Invoke(null); }
             }
         }
 
-        private static LiberatorState? ParseState(string line)
+        private void Handle(string line)
         {
             try
             {
                 using var doc = JsonDocument.Parse(line);
                 var r = doc.RootElement;
-                if (!r.TryGetProperty("event", out var ev) || ev.GetString() != "state") return null;
-                bool B(string name) => r.TryGetProperty(name, out var v) && v.ValueKind == JsonValueKind.True;
-                return new LiberatorState(B("attached"), B("unlocked"), B("unsupported"));
+                string? ev = r.TryGetProperty("event", out var e) ? e.GetString() : null;
+                if (ev == "state")
+                {
+                    static bool B(JsonElement o, string name) => o.TryGetProperty(name, out var v) && v.ValueKind == JsonValueKind.True;
+                    var caps = new Dictionary<string, bool>();
+                    bool full = false;
+                    if (r.TryGetProperty("capabilities", out var c) && c.ValueKind == JsonValueKind.Object)
+                        foreach (var prop in c.EnumerateObject())
+                        {
+                            if (prop.Name == "fullFeature") full = prop.Value.ValueKind == JsonValueKind.True;
+                            else caps[prop.Name] = prop.Value.ValueKind == JsonValueKind.True;
+                        }
+                    Publish(new LiberatorState(B(r, "attached"), B(r, "unlocked"), B(r, "unsupported"), full, caps, null));
+                }
+                else if (ev == "tree")
+                {
+                    Tree = r.TryGetProperty("tree", out var t) && t.ValueKind == JsonValueKind.Array ? ParseNodes(t) : null;
+                    TreeChanged?.Invoke(Tree);
+                }
             }
-            catch { return null; }
+            catch { }
         }
+
+        private static List<PlaylistNode> ParseNodes(JsonElement array) =>
+            array.EnumerateArray().Where(n => n.ValueKind == JsonValueKind.Object).Select(n => new PlaylistNode(
+                n.TryGetProperty("text", out var t) ? t.GetString() ?? "" : "",
+                n.TryGetProperty("id", out var i) ? (i.ValueKind == JsonValueKind.String ? i.GetString() ?? "" : i.ToString()) : "",
+                n.TryGetProperty("children", out var ch) && ch.ValueKind == JsonValueKind.Array ? ParseNodes(ch) : new List<PlaylistNode>()))
+            .ToList();
 
         private void Kill()
         {

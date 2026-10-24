@@ -4,6 +4,15 @@ All notable changes to R6 Throwback Launcher are documented here.
 
 ---
 
+## [3.2.0] – 2026-10-24
+
+### Added
+- Modifications page (new sidebar tab) with unlock all, its live status (Running, Starting, Error, Not supported) and the Liberator download controls, moved out of Settings
+- Playlist editor for Y1 to Y4 seasons: browse the game's modes (multiplayer, Terrorist Hunt, difficulty and more) and pick the one to play
+- Game mods while you play: deathless players and hostage, unlimited ammo and equipment, infinite match time, brain-dead AI, build number, disabling weapons and gadgets, and end round or end match
+
+---
+
 ## [3.1.0] – 2026-10-24
 
 ### Added

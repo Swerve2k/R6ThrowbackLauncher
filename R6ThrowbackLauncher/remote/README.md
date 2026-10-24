@@ -5,7 +5,7 @@ The launcher (3.0.0 and later) shows popups to everyone when they open it. There
 ## 1. New version popup (automatic)
 
 Publish a GitHub release on `Swerve2k/R6ThrowbackLauncher` with a version tag higher than the one people have
-(for example `v3.2.0`) and attach the installer as `OperationThrowback_Setup_v3.2.0.exe`.
+(for example `v3.3.0`) and attach the installer as `OperationThrowback_Setup_v3.3.0.exe`.
 
 On the next launch everyone gets:
 
@@ -39,11 +39,11 @@ Start from the empty template in this folder and add messages:
       "expires": "2026-11-02T00:00:00Z"
     },
     {
-      "id": "please-update-3.2",
+      "id": "please-update-3.3",
       "type": "update",
       "title": "Please update",
-      "message": "Version 3.2.0 fixes downloads for Y8 seasons. Update now to keep downloading.",
-      "maxVersion": "3.1.9"
+      "message": "Version 3.3.0 fixes downloads for Y8 seasons. Update now to keep downloading.",
+      "maxVersion": "3.2.9"
     },
     {
       "id": "discord-invite",

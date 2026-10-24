@@ -135,47 +135,6 @@ namespace R6ThrowbackLauncher
             _ = PublishProfileAsync();
         }
 
-        // ── Unlock all (Liberator) ───────────────────────────────────────────
-
-        private LiberatorSession? _liberator;
-
-        private void StartLiberator(SeasonPatch patch, string? renderer)
-        {
-            StopLiberator();
-            if (!S.LiberatorEnabled) return;
-            if (!LiberatorService.IsInstalled)
-            {
-                ShowToast("Unlock all is on, but Liberator isn't downloaded. Get it in Settings.", Icons.Warning);
-                return;
-            }
-            if (LiberatorService.Unavailable(patch, renderer) is string reason)
-            {
-                ShowToast(reason, Icons.Info);
-                return;
-            }
-            var session = new LiberatorSession();
-            bool announced = false;
-            session.StateChanged += state => Dispatcher.InvokeAsync(() =>
-            {
-                if (_liberator != session) return;
-                if (state.Unsupported) ShowToast("Liberator doesn't support this build, so nothing was unlocked.", Icons.Info);
-                else if (state.Unlocked && !announced)
-                {
-                    announced = true;
-                    ShowToast("Unlock all is active. Every operator and item is unlocked.", Icons.Lock);
-                }
-                UpdateNowPlaying();
-            });
-            _liberator = session;
-            session.Start();
-        }
-
-        private void StopLiberator()
-        {
-            _liberator?.Dispose();
-            _liberator = null;
-        }
-
         private void UpdateNowPlaying()
         {
             if (_sessionPatch == null) { NowPlayingCard.Visibility = Visibility.Collapsed; return; }

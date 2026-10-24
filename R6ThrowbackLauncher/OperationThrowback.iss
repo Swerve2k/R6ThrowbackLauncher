@@ -3,7 +3,7 @@
 ; Paths are relative to this script so it compiles on any machine.
 
 #define AppName      "Operation Throwback"
-#define AppVersion   "3.1.0"
+#define AppVersion   "3.2.0"
 #define AppPublisher "Swerve2k"
 #define AppExeName   "R6ThrowbackLauncher.exe"
 #define AppURL       "https://github.com/Swerve2k/R6ThrowbackLauncher"

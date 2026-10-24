@@ -55,6 +55,7 @@
                                                    Foreground="{DynamicResource Brush.OnAccent}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </Border>
                                 </Grid>
+                                <RadioButton x:Name="NavMods" Style="{StaticResource Nav.Item}" Tag="&#xE9E9;" Content="Modifications" Click="Nav_Click"/>
 
                                 <TextBlock Text="COMMUNITY" Style="{StaticResource Text.Section}" Margin="12,18,0,6"/>
                                 <Grid>
@@ -133,7 +134,7 @@
                                         </StackPanel>
                                     </StackPanel>
                                 </Button>
-                                <TextBlock Grid.Column="1" x:Name="SidebarVersion" Text="v3.1.0" FontSize="11" VerticalAlignment="Center"
+                                <TextBlock Grid.Column="1" x:Name="SidebarVersion" Text="v3.2.0" FontSize="11" VerticalAlignment="Center"
                                            Margin="0,0,4,0" Foreground="{DynamicResource Brush.Fg3}"/>
                             </Grid>
                         </Border>
@@ -293,6 +294,11 @@
                         <Grid x:Name="DownloadsView" Visibility="Collapsed">
                             <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="36,8,26,32">
                                 <StackPanel x:Name="DownloadsContent"/>
+                            </ScrollViewer>
+                        </Grid>
+                        <Grid x:Name="ModsView" Visibility="Collapsed">
+                            <ScrollViewer x:Name="ModsScroll" VerticalScrollBarVisibility="Auto" Padding="36,8,26,32">
+                                <StackPanel x:Name="ModsContent"/>
                             </ScrollViewer>
                         </Grid>
                         <Grid x:Name="FriendsView" Visibility="Collapsed">
