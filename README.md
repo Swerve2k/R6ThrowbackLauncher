@@ -38,6 +38,7 @@ Coming from 2.x? Run the new installer over your current one. Your seasons, sett
 - Friends, friend requests and chat
 - Leaderboard by playtime, sessions and seasons installed; click any player to see their profile
 - Live count of players online, Discord activity and an in-game overlay (Shift + F2)
+- Optional unlock all for Y1 to Y9 seasons, using [Liberator](https://github.com/xeralin/ThrowbackLauncher) by xeralin
 
 **Updates**
 - Update banner, popup and one-click install with a progress screen
@@ -74,6 +75,7 @@ See [CHANGELOG.md](R6ThrowbackLauncher/CHANGELOG.md) for what changed in each ve
 - **SteamRE** - [DepotDownloader](https://github.com/SteamRE/DepotDownloader)
 - **Lungu** - ThrowbackLoader
 - **JVAV** - Hashes and `manifest.json`
+- **xeralin** - [Liberator](https://github.com/xeralin/ThrowbackLauncher) (GPLv3), used for unlock all
 
 <table>
 <tr>

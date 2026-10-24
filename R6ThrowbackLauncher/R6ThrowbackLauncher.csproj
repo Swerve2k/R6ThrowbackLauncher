@@ -10,7 +10,7 @@
     <AssemblyName>R6ThrowbackLauncher</AssemblyName>
     <RootNamespace>R6ThrowbackLauncher</RootNamespace>
     <ApplicationIcon>installer_assets\icon.ico</ApplicationIcon>
-    <Version>3.0.0</Version>
+    <Version>3.1.0</Version>
     <Product>Operation Throwback</Product>
     <Description>Operation Throwback launcher</Description>
   </PropertyGroup>

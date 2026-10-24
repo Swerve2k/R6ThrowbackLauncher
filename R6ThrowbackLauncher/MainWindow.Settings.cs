@@ -33,6 +33,7 @@ namespace R6ThrowbackLauncher
             right.Children.Add(SettingsCard("Appearance", AppearanceSection()));
             right.Children.Add(SettingsCard("Downloads", DownloadsSection()));
             right.Children.Add(SettingsCard("Behavior", BehaviorSection()));
+            right.Children.Add(SettingsCard("Unlock all", LiberatorSection()));
             right.Children.Add(SettingsCard("About", AboutSection()));
 
             cols.Children.Add(left);
@@ -468,6 +469,88 @@ namespace R6ThrowbackLauncher
             return sp;
         }
 
+        // ── Unlock all (Liberator) ───────────────────────────────────────────
+
+        private bool _liberatorBusy;
+        private string _liberatorStatus = "";
+
+        private UIElement LiberatorSection()
+        {
+            var sp = new StackPanel();
+            sp.Children.Add(UiFactory.Text($"Unlocks every operator and item while you play Y1 to Y{LiberatorService.MaxYear} seasons. It uses Liberator, a separate program by xeralin, downloaded from their GitHub release. It changes the game's memory while it runs; no game files are modified. Not available for Y10 and later, Heated Metal or Vulkan.", 12, "Brush.Fg3", wrap: true));
+
+            var info = LiberatorService.IsInstalled ? LiberatorService.ReadInfo() : null;
+            var toggle = UiFactory.Switch(S.LiberatorEnabled, on => { S.LiberatorEnabled = on; SaveSettings(); });
+            toggle.IsEnabled = LiberatorService.IsInstalled;
+            sp.Children.Add(UiFactory.SettingRow("Unlock all when I play", LiberatorService.IsInstalled ? "Starts with supported seasons you launch from here." : "Download Liberator first.", toggle).Margin(0, 10, 0, 0));
+
+            var buttons = new WrapPanel { Margin = new Thickness(0, 6, 0, 0) };
+            if (!LiberatorService.IsInstalled)
+            {
+                var get = UiFactory.Button(_liberatorBusy ? "Downloading" : "Download Liberator", "Btn.Secondary", async (_, _) => await DownloadLiberatorAsync(), Icons.Download);
+                get.IsEnabled = !_liberatorBusy;
+                buttons.Children.Add(get.Margin(0, 0, 8, 8));
+            }
+            else
+            {
+                var update = UiFactory.Button(_liberatorBusy ? "Checking" : "Check for update", "Btn.Secondary", async (_, _) => await DownloadLiberatorAsync(onlyIfNewer: true), Icons.Refresh);
+                update.IsEnabled = !_liberatorBusy;
+                buttons.Children.Add(update.Margin(0, 0, 8, 8));
+                buttons.Children.Add(UiFactory.Button("Remove", "Btn.Ghost", (_, _) =>
+                {
+                    if (_liberator != null) { ShowToast("Close the game first.", Icons.Warning); return; }
+                    try { LiberatorService.Remove(); } catch (Exception ex) { ShowToast(ex.Message, Icons.Warning); return; }
+                    S.LiberatorEnabled = false;
+                    SaveSettings();
+                    BuildSettingsView();
+                }).Margin(0, 0, 8, 8));
+            }
+            buttons.Children.Add(UiFactory.Button("Liberator on GitHub", "Btn.Ghost", (_, _) => OpenUrl(LiberatorService.ProjectUrl), Icons.OpenExternal).Margin(0, 0, 8, 8));
+            sp.Children.Add(buttons);
+
+            string status = _liberatorStatus.Length > 0 ? _liberatorStatus
+                : info != null ? $"Installed: {info.Tag}, downloaded {info.Downloaded.ToLocalTime():MMM d, yyyy}. Licensed GPLv3."
+                : "Not downloaded.";
+            sp.Children.Add(UiFactory.Text(status, 12, "Brush.Fg3", wrap: true));
+            return sp;
+        }
+
+        private async Task DownloadLiberatorAsync(bool onlyIfNewer = false)
+        {
+            if (_liberatorBusy) return;
+            if (_liberator != null) { ShowToast("Close the game first.", Icons.Warning); return; }
+            _liberatorBusy = true;
+            _liberatorStatus = "";
+            BuildSettingsView();
+            try
+            {
+                if (onlyIfNewer)
+                {
+                    string? latest = await LiberatorService.LatestTagAsync();
+                    if (latest == null) throw new InvalidOperationException("GitHub couldn't be reached.");
+                    if (latest == LiberatorService.ReadInfo()?.Tag)
+                    {
+                        _liberatorStatus = $"You have the latest Liberator ({latest}).";
+                        return;
+                    }
+                }
+                var progress = new Progress<string>(m => { _liberatorStatus = m; if (_currentView == SettingsView) BuildSettingsView(); });
+                var info = await LiberatorService.DownloadAsync(progress);
+                _liberatorStatus = "";
+                if (!onlyIfNewer) { S.LiberatorEnabled = true; SaveSettings(); }
+                ShowToast($"Liberator {info.Tag} is ready", Icons.Check);
+            }
+            catch (Exception ex)
+            {
+                _liberatorStatus = "Download failed: " + ex.Message;
+            }
+            finally
+            {
+                _liberatorBusy = false;
+                if (_currentView == SettingsView) BuildSettingsView();
+            }
+        }
+
         // ── Maintenance ──────────────────────────────────────────────────────
 
         private UIElement MaintenanceSection()
@@ -504,7 +587,8 @@ namespace R6ThrowbackLauncher
         {
             var sp = new StackPanel();
             sp.Children.Add(UiFactory.Text($"{AppInfo.Name} {AppInfo.Version}", 13, "Brush.Fg"));
-            sp.Children.Add(UiFactory.Text("Download, manage and play older seasons of Rainbow Six Siege. Not affiliated with, endorsed by or sponsored by Ubisoft.", 12, "Brush.Fg3", wrap: true).Margin(0, 4, 0, 12));
+            sp.Children.Add(UiFactory.Text("Download, manage and play older seasons of Rainbow Six Siege. Not affiliated with, endorsed by or sponsored by Ubisoft.", 12, "Brush.Fg3", wrap: true).Margin(0, 4, 0, 4));
+            sp.Children.Add(UiFactory.Text("Unlock all uses Liberator by xeralin, licensed under GPLv3.", 12, "Brush.Fg3", wrap: true).Margin(0, 0, 0, 12));
             var buttons = new WrapPanel();
             buttons.Children.Add(UiFactory.Button("GitHub", "Btn.Secondary", (_, _) => OpenUrl(AppInfo.RepoUrl), Icons.OpenExternal).Margin(0, 0, 8, 8));
             buttons.Children.Add(UiFactory.Button("Updates", "Btn.Secondary", (_, e) => Nav_Click(NavUpdates, e), Icons.Sync).Margin(0, 0, 8, 8));

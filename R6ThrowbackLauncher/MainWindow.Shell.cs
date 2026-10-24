@@ -195,6 +195,7 @@ namespace R6ThrowbackLauncher
             _sessionTimer?.Stop();
             _runningPoll?.Stop();
             _hotkeyService?.Dispose();
+            StopLiberator();
             _friendWatcher?.Dispose();
             _overlayWindow?.Close();
             Application.Current.Shutdown();

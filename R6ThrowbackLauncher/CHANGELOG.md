@@ -4,6 +4,13 @@ All notable changes to R6 Throwback Launcher are documented here.
 
 ---
 
+## [3.1.0] – 2026-10-24
+
+### Added
+- Unlock all: unlocks every operator and item while you play Y1 to Y9 seasons, using xeralin's Liberator (GPLv3), downloaded on request from their GitHub release. Off for Y10 and later, Heated Metal and Vulkan
+
+---
+
 ## [3.0.0] – 2026-10-23
 
 A full redesign with a black, grey and white interface, a rebuilt download system, Steam-linked profiles and a new updater.

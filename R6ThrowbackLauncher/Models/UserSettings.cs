@@ -131,6 +131,10 @@ namespace R6ThrowbackLauncher.Models
         [JsonPropertyName("inGameOverlay")]
         public bool InGameOverlay { get; set; } = true;
 
+        // Unlock all through Liberator (Y1 to Y9 only)
+        [JsonPropertyName("liberatorEnabled")]
+        public bool LiberatorEnabled { get; set; }
+
         [JsonPropertyName("checkUpdatesOnStartup")]
         public bool CheckUpdatesOnStartup { get; set; } = true;
 
