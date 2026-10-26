@@ -44,6 +44,11 @@ namespace R6ThrowbackLauncher.Services
         private string  _patchKey     = "";
         private string  _username     = "";
 
+        // Event playlist picked on the Modifications page (Outbreak, Rainbow is Magic and so on)
+        private string? _eventName;
+        private string? _modeName;
+        private bool    _unlockAll;
+
         // ── public API ───────────────────────────────────────────────────────
 
         public async Task ConnectAsync()
@@ -91,8 +96,32 @@ namespace R6ThrowbackLauncher.Services
             _mapName     = null;
             _gamemodeName = null;
             _operatorName = null;
+            _eventName   = null;
+            _modeName    = null;
+            _unlockAll   = false;
             _gameStart   = DateTimeOffset.UtcNow;
             await UpdateGamePresenceAsync();
+        }
+
+        /// <summary>
+        /// Call when a playlist is picked. <paramref name="eventName"/> is shown instead of the in-game name
+        /// when the playlist is an event; <paramref name="modeName"/> appears in the image tooltip.
+        /// </summary>
+        public async Task SetPlaylistAsync(string? eventName, string? modeName)
+        {
+            _eventName = string.IsNullOrWhiteSpace(eventName) ? null : eventName.Trim();
+            _modeName  = string.IsNullOrWhiteSpace(modeName) ? null : modeName.Trim();
+            if (_gameStart != null)
+                await UpdateGamePresenceAsync();
+        }
+
+        /// <summary>Call when unlock all starts or stops for the current game.</summary>
+        public async Task SetUnlockAllAsync(bool on)
+        {
+            if (_unlockAll == on) return;
+            _unlockAll = on;
+            if (_gameStart != null)
+                await UpdateGamePresenceAsync();
         }
 
         /// <summary>
@@ -115,6 +144,9 @@ namespace R6ThrowbackLauncher.Services
             _mapName      = null;
             _gamemodeName = null;
             _operatorName = null;
+            _eventName    = null;
+            _modeName     = null;
+            _unlockAll    = false;
             await UpdateLauncherPresenceAsync();
         }
 
@@ -127,34 +159,42 @@ namespace R6ThrowbackLauncher.Services
         {
             var payload = BuildPresence(
                 details  : $"In the launcher, {_currentTab}",
-                state    : null,
-                startTime: _launcherStart);
+                state    : "Browsing seasons",
+                startTime: _launcherStart,
+                imageText: $"Swerve2k Downloader {AppInfo.Version}");
             await SendPresenceAsync(payload);
         }
 
         private async Task UpdateGamePresenceAsync()
         {
-            // details: map & gamemode if known, otherwise season info
+            // details: the season, or map and mode when the game-state reader knows them
             string details = (_mapName, _gamemodeName) switch
             {
                 (string m, string g) => $"{m}, {g}",
                 (string m, null    ) => $"{m}, {_yearSeason}",
-                _                   => $"{_seasonName} ({_yearSeason}, patch {_patchKey})"
+                _                   => $"{_yearSeason} {_seasonName}"
             };
 
-            // state: operator if known, otherwise username
-            string state = _operatorName != null
-                ? $"Playing as {_operatorName}"
-                : $"Logged in as {_username}";
+            // state: the event being played, otherwise the operator, otherwise the in-game name
+            string state = _eventName != null ? _eventName
+                : _operatorName != null ? $"Playing as {_operatorName}"
+                : string.IsNullOrWhiteSpace(_username) ? "In game"
+                : _username;
+
+            // Image tooltip: picked mode and unlock all
+            var tip = new List<string> { $"{_seasonName} ({_yearSeason}, patch {_patchKey})" };
+            if (_modeName != null && _modeName != _eventName) tip.Add(_modeName);
+            if (_unlockAll) tip.Add("Unlock all");
 
             var payload = BuildPresence(
                 details  : details,
                 state    : state,
-                startTime: _gameStart ?? DateTimeOffset.UtcNow);
+                startTime: _gameStart ?? DateTimeOffset.UtcNow,
+                imageText: string.Join("  ·  ", tip));
             await SendPresenceAsync(payload);
         }
 
-        private Dictionary<string, object?> BuildPresence(string details, string? state, DateTimeOffset startTime)
+        private Dictionary<string, object?> BuildPresence(string details, string? state, DateTimeOffset startTime, string imageText)
         {
             var timestamps = new Dictionary<string, long>
             {
@@ -164,21 +204,26 @@ namespace R6ThrowbackLauncher.Services
             var assets = new Dictionary<string, string>
             {
                 ["large_image"] = "operation_throwback_logo",
-                ["large_text"]  = "Operation Throwback"
+                ["large_text"]  = Trim(imageText, 128)
             };
 
             var activity = new Dictionary<string, object?>
             {
-                ["details"]    = details,
+                ["details"]    = Trim(details, 128),
                 ["timestamps"] = timestamps,
-                ["assets"]     = assets
+                ["assets"]     = assets,
+                // Lets friends grab the launcher from your profile.
+                ["buttons"]    = new[] { new Dictionary<string, string> { ["label"] = "Get Swerve2k Downloader", ["url"] = AppInfo.RepoUrl + "/releases/latest" } },
             };
 
             if (state != null)
-                activity["state"] = state;
+                activity["state"] = Trim(state, 128);
 
             return activity;
         }
+
+        // Discord rejects presence fields longer than 128 characters.
+        private static string Trim(string s, int max) => s.Length <= max ? s : s[..(max - 1)] + "\u2026";
 
         private async Task SendPresenceAsync(Dictionary<string, object?>? activity)
         {

@@ -4,6 +4,15 @@ All notable changes to R6 Throwback Launcher are documented here.
 
 ---
 
+## [3.2.1] – 2026-10-26
+
+### Added
+- Discord activity shows the event you're playing (Outbreak, Rainbow is Magic, Doktor's Curse and others) when you pick one in the playlist editor; otherwise it shows your in-game name
+- Discord activity shows the season as its main line, and the picture's tooltip lists the season, patch, picked game mode and whether unlock all is on
+- A "Get Swerve2k Downloader" button on your Discord activity so friends can download the launcher
+
+---
+
 ## [3.2.0] – 2026-10-24
 
 ### Added

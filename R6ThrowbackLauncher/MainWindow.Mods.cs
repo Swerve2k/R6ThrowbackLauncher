@@ -84,6 +84,7 @@ namespace R6ThrowbackLauncher
                 {
                     announced = true;
                     ShowToast("Unlock all is running. Every operator and item is unlocked.", Icons.Lock);
+                    if (S.DiscordPresence) _ = _discord.SetUnlockAllAsync(true);
                 }
                 UpdateNowPlaying();
                 RefreshModsView();
@@ -338,10 +339,13 @@ namespace R6ThrowbackLauncher
                         }
                         else
                         {
+                            var names = columns.Take(col).Select(x => x.Nodes[x.Selected].Text).Append(node.Text).ToList();
                             _playlistPicked = node.Id;
-                            _playlistPickedLabel = string.Join("  >  ", columns.Take(col).Select(x => x.Nodes[x.Selected].Text).Append(node.Text));
+                            _playlistPickedLabel = string.Join("  >  ", names);
                             _liberator?.SetPlaylist(node.Id);
-                            ShowToast($"Game mode set to {node.Text}", Icons.Check);
+                            string? evt = EventName(names);
+                            if (S.DiscordPresence) _ = _discord.SetPlaylistAsync(evt, string.Join(" ", names.Where(n => n != "Events")));
+                            ShowToast(evt != null ? $"Event set to {evt}" : $"Game mode set to {node.Text}", Icons.Check);
                         }
                         BuildModsView();
                     };
@@ -360,6 +364,21 @@ namespace R6ThrowbackLauncher
             sp.Children.Add(new ScrollViewer { Content = frame, HorizontalScrollBarVisibility = ScrollBarVisibility.Auto, VerticalScrollBarVisibility = ScrollBarVisibility.Disabled });
             sp.Children.Add(UiFactory.Text(_playlistPicked.Length > 0 ? $"Selected: {_playlistPickedLabel}" : "Nothing picked yet. The game's own playlist is used.", 12, "Brush.Fg3", wrap: true).Margin(0, 10, 0, 0));
             return UiFactory.Card(sp);
+        }
+
+        // Event names Liberator uses in its game-mode trees.
+        private static readonly HashSet<string> KnownEvents = new(StringComparer.OrdinalIgnoreCase)
+        {
+            "Outbreak", "Mad House", "Rainbow is Magic", "Showdown", "Doktor's Curse", "Money Heist",
+            "Road To S.I. 2020", "Road To S.I. 2021", "Snow Brawl", "Containment", "M.U.T.E. Protocol", "Rengoku",
+        };
+
+        /// <summary>The event a picked playlist belongs to, or null for a normal mode.</summary>
+        private static string? EventName(IReadOnlyList<string> path)
+        {
+            int i = path.ToList().FindIndex(n => n.Equals("Events", StringComparison.OrdinalIgnoreCase));
+            if (i >= 0 && i + 1 < path.Count) return path[i + 1];
+            return path.FirstOrDefault(KnownEvents.Contains);
         }
 
         // ── Game mods ────────────────────────────────────────────────────────
