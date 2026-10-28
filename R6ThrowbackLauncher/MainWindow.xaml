@@ -134,7 +134,7 @@
                                         </StackPanel>
                                     </StackPanel>
                                 </Button>
-                                <TextBlock Grid.Column="1" x:Name="SidebarVersion" Text="v3.2.1" FontSize="11" VerticalAlignment="Center"
+                                <TextBlock Grid.Column="1" x:Name="SidebarVersion" Text="v3.2.2" FontSize="11" VerticalAlignment="Center"
                                            Margin="0,0,4,0" Foreground="{DynamicResource Brush.Fg3}"/>
                             </Grid>
                         </Border>

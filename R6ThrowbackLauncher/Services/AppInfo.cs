@@ -4,7 +4,7 @@ namespace R6ThrowbackLauncher.Services
 {
     public static class AppInfo
     {
-        public const string Version     = "3.2.1";
+        public const string Version     = "3.2.2";
         public const string Name        = "Operation Throwback";
         public const string GitHubOwner = "Swerve2k";
         public const string GitHubRepo  = "R6ThrowbackLauncher";

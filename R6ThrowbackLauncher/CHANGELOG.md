@@ -1,10 +1,17 @@
-# Changelog
+﻿# Changelog
 
 All notable changes to R6 Throwback Launcher are documented here.
 
 ---
 
-## [3.2.1] – 2026-10-26
+## [3.2.2] – 2026-10-28
+
+### Fixed
+- Seasons that ship a small Steam launcher next to the game (such as Y1S4 Red Crow) failed with a Steam DLL error. The launcher now starts RainbowSixGame.exe first, like LaunchR6.bat
+
+---
+
+## [3.2.1] â€“ 2026-10-26
 
 ### Added
 - Discord activity shows the event you're playing (Outbreak, Rainbow is Magic, Doktor's Curse and others) when you pick one in the playlist editor; otherwise it shows your in-game name
@@ -13,7 +20,7 @@ All notable changes to R6 Throwback Launcher are documented here.
 
 ---
 
-## [3.2.0] – 2026-10-24
+## [3.2.0] â€“ 2026-10-24
 
 ### Added
 - Modifications page (new sidebar tab) with unlock all, its live status (Running, Starting, Error, Not supported) and the Liberator download controls, moved out of Settings
@@ -22,14 +29,14 @@ All notable changes to R6 Throwback Launcher are documented here.
 
 ---
 
-## [3.1.0] – 2026-10-24
+## [3.1.0] â€“ 2026-10-24
 
 ### Added
 - Unlock all: unlocks every operator and item while you play Y1 to Y9 seasons, using xeralin's Liberator (GPLv3), downloaded on request from their GitHub release. Off for Y10 and later, Heated Metal and Vulkan
 
 ---
 
-## [3.0.0] – 2026-10-23
+## [3.0.0] â€“ 2026-10-23
 
 A full redesign with a black, grey and white interface, a rebuilt download system, Steam-linked profiles and a new updater.
 The launcher now calls itself Swerve2k Downloader.
@@ -95,12 +102,12 @@ The launcher now calls itself Swerve2k Downloader.
 
 ---
 
-## [2.1.0] – 2026-04-13
+## [2.1.0] â€“ 2026-04-13
 
 ### Added
 
 #### Leaderboard Tab
-- New **Leaderboard** tab in the sidebar (🏆) showing community rankings pulled live from Firebase
+- New **Leaderboard** tab in the sidebar (ðŸ†) showing community rankings pulled live from Firebase
 - Three sort modes: **Total Playtime**, **Sessions Played**, and **Versions Installed**
 - Rank cards display username, stat value, favourite season, and banner colour accent
 - Refresh button to force re-fetch leaderboard data
@@ -112,11 +119,11 @@ The launcher now calls itself Swerve2k Downloader.
 
 #### Live Chat Polling
 - Active chat conversations now poll Firebase every 4 seconds for new messages
-- Only new messages are appended — no full re-render flicker
+- Only new messages are appended â€” no full re-render flicker
 - Polling stops automatically when closing the chat or the window
 
 #### Widget Visibility Toggles
-- **⚙ WIDGETS** button added to the library header toolbar
+- **âš™ WIDGETS** button added to the library header toolbar
 - Toggle **Hero Banner** and **Recently Played** section on/off from a quick popup
 - Visibility preferences are saved to user settings and persist between sessions
 
@@ -129,25 +136,25 @@ The launcher now calls itself Swerve2k Downloader.
 
 #### Intro Splash Screen
 - Short branded splash screen shown on launch while the app initialises
-- Displays loading status phases: manifest load → install scan → ready
+- Displays loading status phases: manifest load â†’ install scan â†’ ready
 - Fades out smoothly when the main window is ready
 
 ### Fixed
 
-- **Y9S2 Heated Metal not launching** — HM files from the bundled archive are now automatically extracted into the install directory during post-processing. No verification step required.
-- **Removed Heated Metal Verification** — The ownership-gate system has been removed entirely. Y9S2 Heated Metal and Y5S4 Heated Metal download and launch without any verification.
-- **Y5S4 Heated Metal artwork** — Season Y5S4 Heated Metal now displays the standard Neon Dawn artwork instead of the Heated Metal logo.
-- **Taskbar visibility when maximised** — Maximising the window no longer covers the Windows taskbar. The window is constrained to `SystemParameters.WorkArea`.
-- **Remember Password** — The "Remember Password" checkbox now correctly saves and restores the Steam password across sessions.
-- **Prerequisites auto-download** — Before each download, the launcher silently checks for and downloads Plazas bypass files and Quality filelists if missing (mirrors the `idk.bat` prerequisite check from the batch downloader).
-- **Auto-updater** — Fixed: uses `Environment.ProcessPath`, adds retry loop, and correctly launches the new version after update.
+- **Y9S2 Heated Metal not launching** â€” HM files from the bundled archive are now automatically extracted into the install directory during post-processing. No verification step required.
+- **Removed Heated Metal Verification** â€” The ownership-gate system has been removed entirely. Y9S2 Heated Metal and Y5S4 Heated Metal download and launch without any verification.
+- **Y5S4 Heated Metal artwork** â€” Season Y5S4 Heated Metal now displays the standard Neon Dawn artwork instead of the Heated Metal logo.
+- **Taskbar visibility when maximised** â€” Maximising the window no longer covers the Windows taskbar. The window is constrained to `SystemParameters.WorkArea`.
+- **Remember Password** â€” The "Remember Password" checkbox now correctly saves and restores the Steam password across sessions.
+- **Prerequisites auto-download** â€” Before each download, the launcher silently checks for and downloads Plazas bypass files and Quality filelists if missing (mirrors the `idk.bat` prerequisite check from the batch downloader).
+- **Auto-updater** â€” Fixed: uses `Environment.ProcessPath`, adds retry loop, and correctly launches the new version after update.
 
 ### Removed
 
-- **Heated Metal Early Access system** — All HM detection, classification, ownership-gating UI cards, badges, and code paths have been removed. HM builds are now standard downloadable entries.
+- **Heated Metal Early Access system** â€” All HM detection, classification, ownership-gating UI cards, badges, and code paths have been removed. HM builds are now standard downloadable entries.
 
 ---
 
-## [2.0.0] – Prior release
+## [2.0.0] â€“ Prior release
 
 Initial public release with library, download manager, profiles, friends, Discord RPC, wallpaper, and theming.

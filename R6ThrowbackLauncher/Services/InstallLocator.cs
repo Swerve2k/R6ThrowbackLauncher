@@ -11,9 +11,11 @@ namespace R6ThrowbackLauncher.Services
     {
         public const string PartialMarker = ".throwback_partial";
 
+        // In older builds (Y1S4 and nearby) RainbowSix.exe is a small Steam launcher stub and the game is
+        // RainbowSixGame.exe, so that one goes first, like LaunchR6.bat.
         private static readonly string[] GameExecutables =
         {
-            "RainbowSix.exe", "RainbowSixGame.exe", "RainbowSix_DX11.exe", "RainbowSix_Vulkan.exe",
+            "RainbowSixGame.exe", "RainbowSix.exe", "RainbowSix_DX11.exe", "RainbowSix_Vulkan.exe",
         };
 
         private readonly Func<IReadOnlyList<string>> _libraries;
